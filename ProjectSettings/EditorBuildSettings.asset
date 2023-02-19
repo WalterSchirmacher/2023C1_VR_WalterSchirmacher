@@ -9,10 +9,10 @@ EditorBuildSettings:
     path: Assets/Scenes/OpeningScene.unity
     guid: f440a65f0d0845e42b3fe97c9eeef1f3
   - enabled: 0
-    path: Assets/Scenes/VRScene.unity
+    path: Assets/Scenes/_hold/VRScene.unity
     guid: c43bc12308614ad448abc56ed60df084
   - enabled: 0
-    path: Assets/Scenes/SampleScene.unity
+    path: Assets/Scenes/_hold/SampleScene.unity
     guid: d1c3109bdb54ad54c8a2b2838528e640
   - enabled: 1
     path: Assets/Scenes/myNatureScene.unity
