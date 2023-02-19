@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - SplitCamera
+  - Rock
+  - Tree
   layers:
   - Default
   - TransparentFX
@@ -12,9 +14,9 @@ TagManager:
   - 
   - Water
   - UI
-  - LeftCamOnly
-  - Left Hand Physics
-  - Right Hand Physics
+  - IgnoreWand
+  - Invisible
+  - 
   - 
   - 
   - 
