@@ -4033,7 +4033,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 2423
+    m_Bits: 3447
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -8689,10 +8689,10 @@ MonoBehaviour:
   mainObject: {fileID: 355819382}
   moveParent: 0
   parentObject: {fileID: 355819382}
-  makeTransparent: 0
+  makeTransparent: 1
+  changeTransparency: 1
   minAlpha: 0
-  maxAlpha: 0
-  currentAlpha: 0
+  maxAlpha: 30
 --- !u!1001 &357531192
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11298,6 +11298,31 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4692153346466280, guid: 9fbd783475165ea4fb5370d2fe04d048, type: 3}
   m_PrefabInstance: {fileID: 480563982}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &483875988 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 135334, guid: aa44802c519f697478e7507c0f1f1b03, type: 3}
+  m_PrefabInstance: {fileID: 1509165965}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &483875989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 483875988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a4058e2dd7828f47a5b029b83624cea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myStatus: 2
+  mainObject: {fileID: 483875988}
+  moveParent: 0
+  parentObject: {fileID: 483875988}
+  makeTransparent: 1
+  changeTransparency: 1
+  minAlpha: 0
+  maxAlpha: 30
 --- !u!1001 &484552408
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11713,6 +11738,31 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 429508, guid: 9c74caa742791864f9c678287121e6c9, type: 3}
   m_PrefabInstance: {fileID: 853626620}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &510889299 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: 9a1421936695f444d97500bc80bfb25f, type: 3}
+  m_PrefabInstance: {fileID: 1044377238}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &510889300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 510889299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a4058e2dd7828f47a5b029b83624cea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myStatus: 3
+  mainObject: {fileID: 510889299}
+  moveParent: 0
+  parentObject: {fileID: 510889299}
+  makeTransparent: 1
+  changeTransparency: 1
+  minAlpha: 0
+  maxAlpha: 30
 --- !u!1001 &512249842
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12070,6 +12120,31 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 429508, guid: 9c74caa742791864f9c678287121e6c9, type: 3}
   m_PrefabInstance: {fileID: 1211034746}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &522450932 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 134598, guid: 2a71030b8ff2f8e4db68e9f8e878a2d7, type: 3}
+  m_PrefabInstance: {fileID: 1459222119}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &522450933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 522450932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a4058e2dd7828f47a5b029b83624cea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myStatus: 2
+  mainObject: {fileID: 522450932}
+  moveParent: 0
+  parentObject: {fileID: 522450932}
+  makeTransparent: 1
+  changeTransparency: 1
+  minAlpha: 0
+  maxAlpha: 30
 --- !u!4 &524534580 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 442488, guid: ec78ebca7517fb745a45a931cb06d2bd, type: 3}
@@ -18127,6 +18202,56 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9c74caa742791864f9c678287121e6c9, type: 3}
+--- !u!1 &763036695 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 175852, guid: f8243bb353e5cb74481bb26fe62fd298, type: 3}
+  m_PrefabInstance: {fileID: 1733784372}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &763036696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 763036695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a4058e2dd7828f47a5b029b83624cea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myStatus: 2
+  mainObject: {fileID: 763036695}
+  moveParent: 0
+  parentObject: {fileID: 763036695}
+  makeTransparent: 1
+  changeTransparency: 1
+  minAlpha: 0
+  maxAlpha: 30
+--- !u!1 &763414105 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: 9a1421936695f444d97500bc80bfb25f, type: 3}
+  m_PrefabInstance: {fileID: 176272906}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &763414106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 763414105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a4058e2dd7828f47a5b029b83624cea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myStatus: 3
+  mainObject: {fileID: 763414105}
+  moveParent: 0
+  parentObject: {fileID: 763414105}
+  makeTransparent: 1
+  changeTransparency: 1
+  minAlpha: 0
+  maxAlpha: 30
 --- !u!1001 &765678115
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22796,6 +22921,31 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 37
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &958850834 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 123896, guid: c63ea781a273235439e583799176c846, type: 3}
+  m_PrefabInstance: {fileID: 395364780}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &958850835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 958850834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a4058e2dd7828f47a5b029b83624cea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myStatus: 1
+  mainObject: {fileID: 958850834}
+  moveParent: 0
+  parentObject: {fileID: 958850834}
+  makeTransparent: 0
+  changeTransparency: 0
+  minAlpha: 0
+  maxAlpha: 0
 --- !u!1001 &959420364
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24186,10 +24336,10 @@ MonoBehaviour:
   mainObject: {fileID: 1009278774}
   moveParent: 0
   parentObject: {fileID: 1009278774}
-  makeTransparent: 0
+  makeTransparent: 1
+  changeTransparency: 1
   minAlpha: 0
-  maxAlpha: 0
-  currentAlpha: 0
+  maxAlpha: 30
 --- !u!65 &1009278776
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -24514,9 +24664,9 @@ MonoBehaviour:
   moveParent: 1
   parentObject: {fileID: 600914504}
   makeTransparent: 0
+  changeTransparency: 1
   minAlpha: 0
   maxAlpha: 0
-  currentAlpha: 0
 --- !u!4 &1016499688 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 429508, guid: 9c74caa742791864f9c678287121e6c9, type: 3}
@@ -31599,7 +31749,8 @@ MonoBehaviour:
   obstancesLayers:
     serializedVersion: 2
     m_Bits: 2048
-  detectedObjects: {fileID: 0}
+  currentlyVisible: []
+  alreadyTransparent: []
 --- !u!54 &1296469011
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -34726,6 +34877,31 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 39
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1472656521 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 177858, guid: 3154e56712ce93e4a9c38786d869983a, type: 3}
+  m_PrefabInstance: {fileID: 1220197504}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1472656522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1472656521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a4058e2dd7828f47a5b029b83624cea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myStatus: 2
+  mainObject: {fileID: 1472656521}
+  moveParent: 0
+  parentObject: {fileID: 1472656521}
+  makeTransparent: 1
+  changeTransparency: 1
+  minAlpha: 0
+  maxAlpha: 30
 --- !u!4 &1477258763 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 442488, guid: ec78ebca7517fb745a45a931cb06d2bd, type: 3}
@@ -49973,10 +50149,10 @@ MonoBehaviour:
   mainObject: {fileID: 542509937}
   moveParent: 1
   parentObject: {fileID: 607148312}
-  makeTransparent: 0
+  makeTransparent: 1
+  changeTransparency: 1
   minAlpha: 0
-  maxAlpha: 0
-  currentAlpha: 0
+  maxAlpha: 30
 --- !u!136 &2108011159
 CapsuleCollider:
   m_ObjectHideFlags: 0
