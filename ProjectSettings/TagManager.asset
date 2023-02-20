@@ -9,6 +9,8 @@ TagManager:
   - Tree
   - Bush
   - Animal
+  - Mushroom
+  - MonsterPlant
   layers:
   - Default
   - TransparentFX
@@ -19,9 +21,9 @@ TagManager:
   - IgnoreWand
   - Invisible
   - Animals
-  - 
-  - 
-  - 
+  - Plants
+  - Rocks
+  - Obstacles
   - 
   - 
   - 
