@@ -8477,6 +8477,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 3890701809362698257, guid: f5b41ba4c79702547a89de7544b80656, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 1781516757}
     - target: {fileID: 3977630358620194647, guid: f5b41ba4c79702547a89de7544b80656, type: 3}
       propertyPath: m_Layer
       value: 8
@@ -8626,6 +8630,10 @@ PrefabInstance:
       value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7962199819078159310, guid: f5b41ba4c79702547a89de7544b80656, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7962199819078159310, guid: f5b41ba4c79702547a89de7544b80656, type: 3}
       propertyPath: m_TagString
       value: Animal
       objectReference: {fileID: 0}
@@ -8686,10 +8694,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myStatus: 3
-  mainObject: {fileID: 355819382}
-  moveParent: 0
+  mainObject: {fileID: 1235183897}
   parentObject: {fileID: 355819382}
-  makeTransparent: 1
+  transparancyState: 0
   changeTransparency: 1
   minAlpha: 0
   maxAlpha: 30
@@ -11316,10 +11323,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myStatus: 2
-  mainObject: {fileID: 483875988}
-  moveParent: 0
+  mainObject: {fileID: 1509165966}
   parentObject: {fileID: 483875988}
-  makeTransparent: 1
+  transparancyState: 2
   changeTransparency: 1
   minAlpha: 0
   maxAlpha: 30
@@ -11738,31 +11744,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 429508, guid: 9c74caa742791864f9c678287121e6c9, type: 3}
   m_PrefabInstance: {fileID: 853626620}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &510889299 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: 9a1421936695f444d97500bc80bfb25f, type: 3}
-  m_PrefabInstance: {fileID: 1044377238}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &510889300
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 510889299}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a4058e2dd7828f47a5b029b83624cea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  myStatus: 3
-  mainObject: {fileID: 510889299}
-  moveParent: 0
-  parentObject: {fileID: 510889299}
-  makeTransparent: 1
-  changeTransparency: 1
-  minAlpha: 0
-  maxAlpha: 30
 --- !u!1001 &512249842
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12138,10 +12119,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myStatus: 2
-  mainObject: {fileID: 522450932}
-  moveParent: 0
+  mainObject: {fileID: 1459222120}
   parentObject: {fileID: 522450932}
-  makeTransparent: 1
+  transparancyState: 2
   changeTransparency: 1
   minAlpha: 0
   maxAlpha: 30
@@ -12698,11 +12678,6 @@ PrefabInstance:
 --- !u!4 &542509936 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4000010968662070, guid: 30b99e7dc1382e346a7f9789de00de5e, type: 3}
-  m_PrefabInstance: {fileID: 542509935}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &542509937 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1000012968262300, guid: 30b99e7dc1382e346a7f9789de00de5e, type: 3}
   m_PrefabInstance: {fileID: 542509935}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &543890015
@@ -16061,6 +16036,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4591142903008340, guid: 58c08d0cd58281b4e86449149f47b49d, type: 3}
   m_PrefabInstance: {fileID: 682303522}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &688012415 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1000014277779934, guid: 30b99e7dc1382e346a7f9789de00de5e, type: 3}
+  m_PrefabInstance: {fileID: 542509935}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &693684011
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18220,35 +18200,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myStatus: 2
-  mainObject: {fileID: 763036695}
-  moveParent: 0
+  mainObject: {fileID: 1733784373}
   parentObject: {fileID: 763036695}
-  makeTransparent: 1
-  changeTransparency: 1
-  minAlpha: 0
-  maxAlpha: 30
---- !u!1 &763414105 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: 9a1421936695f444d97500bc80bfb25f, type: 3}
-  m_PrefabInstance: {fileID: 176272906}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &763414106
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 763414105}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a4058e2dd7828f47a5b029b83624cea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  myStatus: 3
-  mainObject: {fileID: 763414105}
-  moveParent: 0
-  parentObject: {fileID: 763414105}
-  makeTransparent: 1
+  transparancyState: 2
   changeTransparency: 1
   minAlpha: 0
   maxAlpha: 30
@@ -20906,6 +20860,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 442488, guid: ec78ebca7517fb745a45a931cb06d2bd, type: 3}
   m_PrefabInstance: {fileID: 790275436}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &874512135 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1000010088095400, guid: 30b99e7dc1382e346a7f9789de00de5e, type: 3}
+  m_PrefabInstance: {fileID: 542509935}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &875842679 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 429508, guid: 9c74caa742791864f9c678287121e6c9, type: 3}
@@ -22940,9 +22899,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myStatus: 1
   mainObject: {fileID: 958850834}
-  moveParent: 0
   parentObject: {fileID: 958850834}
-  makeTransparent: 0
+  transparancyState: 2
   changeTransparency: 0
   minAlpha: 0
   maxAlpha: 0
@@ -24333,10 +24291,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myStatus: 0
-  mainObject: {fileID: 1009278774}
-  moveParent: 0
+  mainObject: {fileID: 1900268784}
   parentObject: {fileID: 1009278774}
-  makeTransparent: 1
+  transparancyState: 1
   changeTransparency: 1
   minAlpha: 0
   maxAlpha: 30
@@ -24661,9 +24618,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myStatus: 2
   mainObject: {fileID: 711577459}
-  moveParent: 1
   parentObject: {fileID: 600914504}
-  makeTransparent: 0
+  transparancyState: 2
   changeTransparency: 1
   minAlpha: 0
   maxAlpha: 0
@@ -26914,6 +26870,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 4257360524223518, guid: a112121569d92b34cab18c9c14a7e342, type: 3}
   m_PrefabInstance: {fileID: 1110467237}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1111118709 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1000012011056762, guid: 30b99e7dc1382e346a7f9789de00de5e, type: 3}
+  m_PrefabInstance: {fileID: 542509935}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &1111372104 stripped
 Transform:
@@ -29442,6 +29403,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3154e56712ce93e4a9c38786d869983a, type: 3}
+--- !u!1 &1220197505 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 167468, guid: 3154e56712ce93e4a9c38786d869983a, type: 3}
+  m_PrefabInstance: {fileID: 1220197504}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1221224262
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30218,6 +30184,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 4820514527977402, guid: bc3316724907acc499f7aa324f7a5d68, type: 3}
   m_PrefabInstance: {fileID: 1234601151}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1235183897 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2025234191546848779, guid: f5b41ba4c79702547a89de7544b80656, type: 3}
+  m_PrefabInstance: {fileID: 355819381}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1238798019
 PrefabInstance:
@@ -34702,6 +34673,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a71030b8ff2f8e4db68e9f8e878a2d7, type: 3}
+--- !u!1 &1459222120 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 147032, guid: 2a71030b8ff2f8e4db68e9f8e878a2d7, type: 3}
+  m_PrefabInstance: {fileID: 1459222119}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1459778192 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 429508, guid: 9c74caa742791864f9c678287121e6c9, type: 3}
@@ -34895,10 +34871,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myStatus: 2
-  mainObject: {fileID: 1472656521}
-  moveParent: 0
+  mainObject: {fileID: 1220197505}
   parentObject: {fileID: 1472656521}
-  makeTransparent: 1
+  transparancyState: 2
   changeTransparency: 1
   minAlpha: 0
   maxAlpha: 30
@@ -35965,6 +35940,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aa44802c519f697478e7507c0f1f1b03, type: 3}
+--- !u!1 &1509165966 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 166816, guid: aa44802c519f697478e7507c0f1f1b03, type: 3}
+  m_PrefabInstance: {fileID: 1509165965}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1515095378
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -40325,6 +40305,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f8243bb353e5cb74481bb26fe62fd298, type: 3}
+--- !u!1 &1733784373 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 146286, guid: f8243bb353e5cb74481bb26fe62fd298, type: 3}
+  m_PrefabInstance: {fileID: 1733784372}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1735442389
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -41703,6 +41688,118 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ec78ebca7517fb745a45a931cb06d2bd, type: 3}
+--- !u!21 &1781516757
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Bear_4 (Instance)
+  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+  m_ShaderKeywords: _NORMALMAP _OCCLUSIONMAP
+  m_LightmapFlags: 6
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: 3000
+  stringTagMap:
+    RenderType: Transparent
+  disabledShaderPasses:
+  - SHADOWCASTER
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BaseMap:
+        m_Texture: {fileID: 2800000, guid: 93fb1fce8497ab447a7cc4f7faa1f322, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BumpMap:
+        m_Texture: {fileID: 2800000, guid: d28fabf885861fb48ae21d198e816aaf, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 2800000, guid: ec7b850318e029f4ca2ea8e49339fa84, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 93fb1fce8497ab447a7cc4f7faa1f322, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 2800000, guid: e22ae1e52f5a40b4d9b12395f2ea4b24, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SpecGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _AlphaClip: 0
+    - _Blend: 0
+    - _BumpScale: 1
+    - _ClearCoatMask: 0
+    - _ClearCoatSmoothness: 0
+    - _Cull: 2
+    - _Cutoff: 0.5
+    - _DetailAlbedoMapScale: 1
+    - _DetailNormalMapScale: 1
+    - _DstBlend: 10
+    - _EnvironmentReflections: 1
+    - _GlossMapScale: 1
+    - _Glossiness: 0.18
+    - _GlossyReflections: 1
+    - _Metallic: 0
+    - _Mode: 0
+    - _OcclusionStrength: 1
+    - _Parallax: 0.02
+    - _QueueOffset: 0
+    - _ReceiveShadows: 1
+    - _Smoothness: 0.18
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 5
+    - _Surface: 1
+    - _UVSec: 0
+    - _WorkflowMode: 1
+    - _ZWrite: 0
+    m_Colors:
+    - _BaseColor: {r: 1, g: 1, b: 1, a: 0}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+  m_BuildTextureStacks: []
 --- !u!1 &1783422891
 GameObject:
   m_ObjectHideFlags: 0
@@ -44822,6 +44919,11 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 114735056877410658, guid: 3f9dcd6bf73fe2f40806fb0074f456c4, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 3f9dcd6bf73fe2f40806fb0074f456c4, type: 3}
+--- !u!1 &1900268784 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1623900490099042, guid: 3f9dcd6bf73fe2f40806fb0074f456c4, type: 3}
+  m_PrefabInstance: {fileID: 1900268783}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1917110079 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 429508, guid: 9c74caa742791864f9c678287121e6c9, type: 3}
@@ -50142,17 +50244,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 2108011156}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a4058e2dd7828f47a5b029b83624cea, type: 3}
+  m_Script: {fileID: 11500000, guid: 9da1bb1e8edbf1c4295b2f2f6caa0b74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myStatus: 2
-  mainObject: {fileID: 542509937}
-  moveParent: 1
+  myStatus: 1
+  mainObject: {fileID: 607148312}
   parentObject: {fileID: 607148312}
-  makeTransparent: 1
+  transparancyState: 2
   changeTransparency: 1
   minAlpha: 0
   maxAlpha: 30
+  lOD0: {fileID: 874512135}
+  lOD1: {fileID: 688012415}
+  lOD2: {fileID: 1111118709}
 --- !u!136 &2108011159
 CapsuleCollider:
   m_ObjectHideFlags: 0
