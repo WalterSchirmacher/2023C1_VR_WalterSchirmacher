@@ -4,72 +4,173 @@ using UnityEngine;
 
 public class FriendOrFoe : MonoBehaviour
 {
-
     public enum MyStatus { Friendly, Neutral, Hostile, ExtremeHatred };
-    public enum TransStatus { UseMin, UseMax, None };
+    public enum TransStatus { Default, Partial, TempHidden, TempVisible };
+
+    [Tooltip("Friendly won't attack, Neutral is wary, Hostile will attack, ExtremeHatred attacks with no warning.")]
     public MyStatus myStatus = MyStatus.Neutral;
-    public GameObject mainObject;
     public GameObject parentObject;
-    public TransStatus transparancyState = TransStatus.None;
-    public bool changeTransparency = true;
-    public float minAlpha = 0;
-    public float maxAlpha = 30;
+    public GameObject visibleObject;
+    public GameObject transparentObject;
 
-    private float currentAlpha;
+    [HideInInspector]
+    public TransStatus currentTransState;
+    [Tooltip("Default sets the object to the starting visibility, Partial shows with transparency, TempHidden hides it, TempVisible makes it appear.")]
+    public TransStatus defaultTransState = TransStatus.Default;
 
+    private int myLayer;
+    private int tempVisLayer;
+    private int tempHiddenLayer;
+    private string gTag;
 
     // Start is called before the first frame update
     void Start()
     {
-        if(transparancyState == TransStatus.UseMin)
+
+        gTag = gameObject.tag;
+        string gLayerName;
+
+        switch (gTag)
         {
-            MakeTransparent();     
-        } else if (transparancyState == TransStatus.UseMax)
+            case "Rock":
+                gLayerName = "Rocks";
+                break;
+            case "Tree":
+                gLayerName = "Plants";
+                break;
+            case "Bush":
+                gLayerName = "Plants";
+                break;
+            case "Animal":
+                gLayerName = "Animals";
+                break;
+            case "Mushroom":
+                gLayerName = "Plants";
+                break;
+            case "MonsterPlant":
+                gLayerName = "MonsterPlants";
+                break;
+            default:
+                gLayerName = "Default";
+                Debug.Log("Item Tag Not Found");
+                break;
+        }
+
+        tempVisLayer = LayerMask.NameToLayer("TempVisible");
+        tempHiddenLayer = LayerMask.NameToLayer("TempHidden");
+        myLayer = LayerMask.NameToLayer(gLayerName);
+
+      //  Debug.Log("Tag was: " + gTag);
+      //  Debug.Log("Layer Name was: " + gLayerName);
+     //   Debug.Log("And level is " + myLayer);
+
+        if (defaultTransState == TransStatus.Default)
         {
-            MakeSolid();
+            MakeDefault();
+        }
+        else if (defaultTransState == TransStatus.Partial)
+        {
+            MakePartlyTransparent();
+        }
+        else if (defaultTransState == TransStatus.TempHidden)
+        {
+            MakeTempHidden();
+        } 
+        else if (defaultTransState == TransStatus.TempVisible)
+        {
+            MakeTempVisible();
         }
     }
 
-    [ContextMenu("Make Transparent")]
-    public void MakeTransparent()
+    [ContextMenu("Make Default")]
+    public void MakeDefault()
     {
-        Debug.Log("Make Transparent");
+        Debug.Log("Set to Default");
 
-        if (changeTransparency)
+        if(defaultTransState == TransStatus.Partial)
         {
-            ChangeTransparancy(mainObject, minAlpha);
+            MakePartlyTransparent();
+        }
+        else
+        {
+            currentTransState = TransStatus.Default;
+            transparentObject.SetActive(false);
+            visibleObject.SetActive(true);
+            CheckAndSetLayer(myLayer);
         }
     }
 
-    [ContextMenu("Make Solid")]
-    public void MakeSolid()
+    [ContextMenu("Partly Transparent")]
+    public void MakePartlyTransparent()
     {
-        Debug.Log("Make Solid");
+        Debug.Log("Make Partly Transparent");
 
-        if (changeTransparency)
+        currentTransState = TransStatus.Partial;
+        visibleObject.SetActive(false);
+        transparentObject.SetActive(true);
+
+        if (gTag == "Plant" || gTag == "Rock")
         {
-                ChangeTransparancy(mainObject, maxAlpha);
+            CheckAndSetLayer(tempVisLayer);
+        } else
+        {
+            CheckAndSetLayer(myLayer);
         }
-         
     }
 
-
-    public void ChangeTransparancy(GameObject theObj, float theAlpha)
+    [ContextMenu("Temporarily Hides Object")]
+    public void MakeTempHidden()
     {
-        Renderer ren = theObj.GetComponent<Renderer>();
+        Debug.Log("Make Hidden Temporarily");
 
-        currentAlpha = ren.material.color.a;
-
-        if (currentAlpha != theAlpha)
-        {
-            Color color = ren.material.color;
-            color.a = minAlpha;
-            ren.material.color = color;
-            currentAlpha = theAlpha;
-        }
-
+        currentTransState = TransStatus.TempHidden;
+        transparentObject.SetActive(false);
+        visibleObject.SetActive(true);
+        CheckAndSetLayer(tempHiddenLayer);
     }
 
-    
+    [ContextMenu("Temporarily Makes Visible")]
+    public void MakeTempVisible()
+    {
+        Debug.Log("Make Hidden Temporarily");
+
+        currentTransState = TransStatus.TempVisible;
+        transparentObject.SetActive(false);
+        visibleObject.SetActive(true);
+        CheckAndSetLayer(tempVisLayer);
+    }
+
+    [ContextMenu("Reset Object to Defaults")]
+    public void ResetObject()
+    {
+        Debug.Log("Resetting Object");
+
+        currentTransState = TransStatus.Default;
+        transparentObject.SetActive(false);
+        visibleObject.SetActive(true);
+        CheckAndSetLayer(myLayer);
+    }
+
+    // Check if layer is correct layer for item
+    private void CheckAndSetLayer(int theLayer)
+    {
+     //   Debug.Log("Setting layer to: " + theLayer);
+        parentObject.layer = theLayer;
+        SetLayerAllChildren(parentObject, theLayer);
+    }
+
+    private void SetLayerAllChildren(GameObject _go, int _layer)
+    {
+        _go.layer = _layer;
+        foreach (Transform child in _go.transform)
+        {
+            child.gameObject.layer = _layer;
+
+            Transform _HasChildren = child.GetComponentInChildren<Transform>();
+            if (_HasChildren != null)
+                SetLayerAllChildren(child.gameObject, _layer);
+
+        }
+    }
 
 }

@@ -19,13 +19,13 @@ TagManager:
   - Water
   - UI
   - IgnoreWand
-  - Invisible
+  - Obstacles
   - Animals
   - Plants
   - Rocks
-  - Obstacles
-  - 
-  - 
+  - MonsterPlants
+  - TempVisible
+  - TempHidden
   - 
   - 
   - 
