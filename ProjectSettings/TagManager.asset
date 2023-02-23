@@ -18,7 +18,7 @@ TagManager:
   - 
   - Water
   - UI
-  - IgnoreWand
+  - IgnorePlayer
   - Obstacles
   - Animals
   - Plants
@@ -26,8 +26,8 @@ TagManager:
   - MonsterPlants
   - TempVisible
   - TempHidden
-  - 
-  - 
+  - Player
+  - PlayerCone
   - 
   - 
   - 
