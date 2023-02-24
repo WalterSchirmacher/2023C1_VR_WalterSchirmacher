@@ -12,8 +12,12 @@ public class FriendOrFoe : MonoBehaviour
     public GameObject parentObject;
     public GameObject visibleObject;
     public GameObject transparentObject;
+    public GameObject innerSphere;
+    public GameObject outerSphere;
+    public bool OuterPlayerFound { get; set; } = false;
+    public bool InnerPlayerFound { get; set; } = false;
 
-    [HideInInspector]
+[HideInInspector]
     public TransStatus currentTransState;
     [Tooltip("Default sets the object to the starting visibility, Partial shows with transparency, TempHidden hides it, TempVisible makes it appear.")]
     public TransStatus defaultTransState = TransStatus.Default;
@@ -26,7 +30,6 @@ public class FriendOrFoe : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
         gTag = gameObject.tag;
         string gLayerName;
 
@@ -60,10 +63,6 @@ public class FriendOrFoe : MonoBehaviour
         tempHiddenLayer = LayerMask.NameToLayer("TempHidden");
         myLayer = LayerMask.NameToLayer(gLayerName);
 
-      //  Debug.Log("Tag was: " + gTag);
-      //  Debug.Log("Layer Name was: " + gLayerName);
-     //   Debug.Log("And level is " + myLayer);
-
         if (defaultTransState == TransStatus.Default)
         {
             MakeDefault();
@@ -81,6 +80,23 @@ public class FriendOrFoe : MonoBehaviour
             MakeTempVisible();
         }
     }
+
+  /*  private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("I detect a " + other.gameObject.name);
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        Debug.Log("I still detect a " + other.gameObject.name);
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        Debug.Log("I no longer detect a " + other.gameObject.name);
+    }
+  */
+
 
     [ContextMenu("Make Default")]
     public void MakeDefault()

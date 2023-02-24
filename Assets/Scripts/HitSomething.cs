@@ -8,34 +8,28 @@ public class HitSomething : MonoBehaviour
 
     public enum ManOrWoman { Man, Woman };
     public ManOrWoman manOrWoman = ManOrWoman.Man;
-    public AudioSource audioSourceRock, audioSourceTree, audioSourceBush;
-    public AudioClip _rockSoundMan, _rockSoundWoman, _treeSoundMan, _treeSoundWoman, _bushSoundMan, _bushSoundWoman;
-
-    public int rockHits = 0;
-    public int treeHits = 0;
-    public int bushHits = 0;
-
+    public AudioSource audioSourceBody;
+    public AudioClip _impactSound, _impactMan, _impactWoman;
+    public AudioClip[] adClips = new AudioClip[2];
 
     // Start is called before the first frame update
     void Start()
-    {
-        audioSourceRock.GetComponent<AudioSource>();
-        audioSourceTree.GetComponent<AudioSource>();
-
-        if (audioSourceRock && audioSourceTree && audioSourceBush && _rockSoundMan && _treeSoundMan && _bushSoundMan && _rockSoundWoman && _treeSoundWoman && _bushSoundWoman)
+    { 
+        audioSourceBody.GetComponent<AudioSource>();
+          
+        if (audioSourceBody)
         {
+            adClips[0] = _impactSound;
+
             Debug.Log("Audio sources good");
 
-            if(manOrWoman == ManOrWoman.Man)
+            if (manOrWoman == ManOrWoman.Man)
             {
-                audioSourceRock.clip = _rockSoundMan;
-                audioSourceTree.clip = _treeSoundMan;
-                audioSourceBush.clip = _bushSoundMan;
-            } else
+               adClips[1] = _impactMan;
+            }
+            else 
             {
-                audioSourceRock.clip = _rockSoundWoman;
-                audioSourceTree.clip = _treeSoundWoman;
-                audioSourceBush.clip = _bushSoundWoman;
+                adClips[1] = _impactWoman;
             }
         } else
         {
@@ -45,32 +39,26 @@ public class HitSomething : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        string theTag = collision.gameObject.tag;
-
-        switch (theTag)
+        Debug.Log("Hit a " + collision.gameObject.name + " " + collision.gameObject.tag);
+        if(collision.gameObject.name != "Terrain")
         {
-            case "Rock":
-                rockHits++;
-                audioSourceRock.Play();
-                break;
-            case "Tree":
-                treeHits++;
-                audioSourceTree.Play();
-                break;
-            case "Bush":
-                bushHits++;
-                audioSourceBush.Play();
-                break;
-            default:
-                Debug.Log("Collided with something other than a Rock, Tree, or a Bush");
-                break;
+            StartCoroutine(PlayAudioSequentially());
         }
+        
+    }
 
-        if(theTag != string.Empty)
+  IEnumerator PlayAudioSequentially()
+    {
+        yield return null;
+        for (int i = 0; i < adClips.Length; i++)
         {
-            Debug.Log("Hit a " + theTag);
+            audioSourceBody.clip = adClips[i];
+            audioSourceBody.Play();
+
+            while (audioSourceBody.isPlaying)
+            {
+                yield return null;
+            }
         }
-       
-        // collision.gameObject.SetActive(false);
     }
 }
