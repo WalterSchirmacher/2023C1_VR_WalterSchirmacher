@@ -4,59 +4,56 @@ using UnityEngine;
 
 public class BearFoe : FriendOrFoe
 {
-    public AudioSource audioSource;
-    public AudioClip _shortRoar, _longRoaring;
+    public AudioSource audioRegular, audioMad;
     private float theVol = 0f;
     private float randomLower = 3f;
     private float randomUpper = 10f;
-    private bool stopAudio = false;
+    private bool stopRegularAudio = false;
+    private bool stopMadAudio = false;
     private int fadeAudioTime = 10;
+    [HideInInspector]
+    public bool isChasing = false;
 
     // Start is called before the first frame update
    void Start()
     {
-        Debug.Log("Bear Ready.");
+        myStatus = GameMaster.Disposition.Hostile;
+        damage = gameMaster.GetDamageAmount(myStatus);
 
-        if(!audioSource || !_shortRoar || !_longRoaring)
+        if(!audioRegular || !audioMad)
         {
-            Debug.Log("Invalid Audio Source or Clip!");
+            Debug.Log("Invalid Audio Source!");
+            Debug.Log("AudioSource: " + audioRegular);
+            Debug.Log("Short Roar: " + audioMad);
         }
     }
 
-
     public void ChasePlayer()
     {
-        audioSource.clip = _shortRoar;
-        StartCoroutine(ShortRoar());
-    }
-
-    IEnumerator ShortRoar()
-    {
-        float waitTime = audioSource.clip.length + 3;
-        audioSource.Play();
-        yield return new WaitForSeconds(waitTime);
-        MoreChasing();
-    }
-
-    private void MoreChasing()
-    {
-        Debug.Log("Continue the chase");
-        audioSource.clip = _longRoaring;
-        StopCoroutine(RoarAudio());
+        Debug.Log("Chasing Player");
+        isChasing = true;
+        myStatus = GameMaster.Disposition.ExtremeHatred;
+        damage = gameMaster.GetDamageAmount(myStatus);
+        PauseRegularAudio();
+        StartCoroutine(MadRoarAudio());
     }
     
+    public void StopChasePlayer()
+    {
+        Debug.Log("Stopping the Chase");
+    }
+
     public void PlayerLost()
     {
-        stopAudio = true;
-       // StopCoroutine(RoarAudio());
+        stopRegularAudio = true;
+        stopMadAudio = true;
     }
 
     public void PlayerFound()
     {
-        stopAudio = false;
+        stopRegularAudio = false;
+        stopMadAudio = false;
         theVol = 0f;
-
-        audioSource.clip = _longRoaring;
 
         if (OuterPlayerFound && !InnerPlayerFound)
         {
@@ -66,27 +63,45 @@ public class BearFoe : FriendOrFoe
         {
             theVol = 0.5f;
         }
-        audioSource.volume = theVol;
-        StartCoroutine(RoarAudio());
+        audioRegular.volume = theVol;
+        audioMad.volume = theVol;
+        StartCoroutine(RegularRoarAudio());
         Debug.Log("Roar!");
     }
 
-    IEnumerator RoarAudio()
+    IEnumerator RegularRoarAudio()
     {
-        float waitTime = audioSource.clip.length + Random.Range(randomLower, randomUpper);
-        Debug.Log("Wait Time: " + waitTime);
-
-        audioSource.Play();
-
-        if(stopAudio)
+        Debug.Log("Playing regular");
+     
+        while (!stopRegularAudio)
         {
-            yield return new WaitForSeconds(waitTime);
-            
-        } else
-        {
-            audioSource.FadeOut(fadeAudioTime);
+            audioRegular.Play();
+            yield return new WaitForSeconds(audioRegular.clip.length + Random.Range(randomLower, randomUpper));
         }
+
+        audioRegular.FadeOut(fadeAudioTime);
      }
+
+    IEnumerator MadRoarAudio()
+    {
+        Debug.Log("Playing mad");
+
+        while (!stopMadAudio)
+        {
+            audioMad.Play();
+            yield return new WaitForSeconds(audioMad.clip.length + (Random.Range(randomLower, randomUpper))/2);
+        }
+
+        audioMad.FadeOut(fadeAudioTime);
+    }
+
+    IEnumerable PauseRegularAudio()
+    {
+        stopRegularAudio = true;
+        yield return new WaitForSeconds(fadeAudioTime + 1);
+        stopRegularAudio = false;
+        StartCoroutine(RegularRoarAudio());
+    }
 
 }
 

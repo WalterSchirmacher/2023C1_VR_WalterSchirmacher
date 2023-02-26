@@ -4,21 +4,30 @@ using UnityEngine;
 
 public class FriendOrFoe : MonoBehaviour
 {
-    public enum MyStatus { Friendly, Neutral, Hostile, ExtremeHatred };
-    public enum TransStatus { Default, Partial, TempHidden, TempVisible };
 
+    public enum TransStatus { Default, Partial, TempHidden, TempVisible };
+    public GameMaster gameMaster;
     [Tooltip("Friendly won't attack, Neutral is wary, Hostile will attack, ExtremeHatred attacks with no warning.")]
-    public MyStatus myStatus = MyStatus.Neutral;
+    public GameMaster.Disposition myStatus = GameMaster.Disposition.Neutral;
     public GameObject parentObject;
     public GameObject visibleObject;
     public GameObject transparentObject;
     public GameObject innerSphere;
     public GameObject outerSphere;
+
+    [Tooltip("Time in seconds to wait between hits on Collision.")]
+    public float damangeWaitTime = 1;
+    private float dmgWaitTimer = 0f;
+    [HideInInspector]
+    public float damage { get; set; } = 0f;
+    private bool _canHit = true;
     public bool OuterPlayerFound { get; set; } = false;
     public bool InnerPlayerFound { get; set; } = false;
 
-[HideInInspector]
+
+    [HideInInspector]
     public TransStatus currentTransState;
+   
     [Tooltip("Default sets the object to the starting visibility, Partial shows with transparency, TempHidden hides it, TempVisible makes it appear.")]
     public TransStatus defaultTransState = TransStatus.Default;
 
@@ -26,6 +35,8 @@ public class FriendOrFoe : MonoBehaviour
     private int tempVisLayer;
     private int tempHiddenLayer;
     private string gTag;
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -81,21 +92,26 @@ public class FriendOrFoe : MonoBehaviour
         }
     }
 
-  /*  private void OnTriggerEnter(Collider other)
+    private void Update()
     {
-        Debug.Log("I detect a " + other.gameObject.name);
+        dmgWaitTimer += Time.deltaTime;
+
+        if(dmgWaitTimer > damangeWaitTime && !_canHit)
+        {
+            _canHit = true;
+        }
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("I still detect a " + other.gameObject.name);
+        Debug.Log(gameObject.name + " Hit a " + collision.gameObject.name + " " + collision.gameObject.tag);
+        if (collision.gameObject.name == "PlayerBody" && _canHit)
+        {
+            gameMaster.ReduceHealth(damage);
+            dmgWaitTimer = 0;
+            _canHit = false;
+        }
     }
-
-    private void OnTriggerExit(Collider other)
-    {
-        Debug.Log("I no longer detect a " + other.gameObject.name);
-    }
-  */
 
 
     [ContextMenu("Make Default")]

@@ -12,31 +12,40 @@ public class OuterSphere : MonoBehaviour
         Debug.Log("Outer Starting up.");
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider collider)
     {
-        Debug.Log("Outer Hit a " + collision.gameObject.name + " " + collision.gameObject.tag);
-        if (collision.gameObject.name == "PlayerBody")
+        Debug.Log("Outer Hit a " + collider.gameObject.name + " " + collider.gameObject.tag);
+        if (collider.gameObject.name == "PlayerBody")
         {
             myParent.OuterPlayerFound = true;
             innerSphere.SetActive(true);
             myParent.PlayerFound();
+            if(myParent.myStatus == GameMaster.Disposition.ExtremeHatred)
+            {
+                if (!myParent.isChasing)
+                {
+                    myParent.ChasePlayer();
+                }
+            }
+
         }
     }
-    private void OnCollisionStay(Collision collision)
+    private void OnTriggerStay(Collider collider)
     {
         
-        if (collision.gameObject.name == "PlayerBody")
+        if (collider.gameObject.name == "PlayerBody")
         {
-            Debug.Log("Outer Still seeing a " + collision.gameObject.name + " " + collision.gameObject.tag);
+            //  Debug.Log("Outer Still seeing a " + collider.gameObject.name + " " + collider.gameObject.tag);
         }
     }
-    private void OnCollisionExit(Collision collision)
+    private void OnTriggerExit(Collider collider)
     {
-        if (collision.gameObject.name == "PlayerBody")
+        if (collider.gameObject.name == "PlayerBody")
         {
-            Debug.Log("Outer No longer see a " + collision.gameObject.name + " " + collision.gameObject.tag);
+            Debug.Log("Outer No longer see a " + collider.gameObject.name + " " + collider.gameObject.tag);
             myParent.OuterPlayerFound = false;
             innerSphere.SetActive(false);
+            myParent.PlayerLost();
         }
     }
 }

@@ -10,18 +10,24 @@ public class HitSomething : MonoBehaviour
     public ManOrWoman manOrWoman = ManOrWoman.Man;
     public AudioSource audioSourceBody;
     public AudioClip _impactSound, _impactMan, _impactWoman;
+    [HideInInspector]
     public AudioClip[] adClips = new AudioClip[2];
+    public Terrain theTerrain;
+    private int terrainLayer;
 
     // Start is called before the first frame update
     void Start()
-    { 
+    {
+        terrainLayer = LayerMask.NameToLayer("Terrain");
+        // Physics.IgnoreCollision(gameObject.GetComponent<Collider>(), theTerrain.GetComponent<Collider>());
+
         audioSourceBody.GetComponent<AudioSource>();
           
-        if (audioSourceBody)
+        if (audioSourceBody && _impactMan && _impactWoman)
         {
             adClips[0] = _impactSound;
 
-            Debug.Log("Audio sources good");
+    //        Debug.Log("Audio sources good");
 
             if (manOrWoman == ManOrWoman.Man)
             {
@@ -34,14 +40,17 @@ public class HitSomething : MonoBehaviour
         } else
         {
             Debug.Log("Invalid Audio Source or Clip!");
+            Debug.Log("AudioSource: " + audioSourceBody);
+            Debug.Log("Impact Man: " + _impactMan);
+            Debug.Log("Impact Woman: " + _impactWoman);
         }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Hit a " + collision.gameObject.name + " " + collision.gameObject.tag);
-        if(collision.gameObject.name != "Terrain")
+        if (collision.gameObject.name != "Terrain" && collision.gameObject.tag != "DetectorSphere")
         {
+            Debug.Log("Hit a " + collision.gameObject.name + " " + collision.gameObject.tag);
             StartCoroutine(PlayAudioSequentially());
         }
         

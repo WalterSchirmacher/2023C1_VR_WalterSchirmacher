@@ -8,14 +8,14 @@ public class GameMaster : MonoBehaviour
 {
 	public ActionBasedContinuousMoveProvider abContinousMovePB;
 	public enum HealthStatus { Healthy, OK, Tired, Bad, Critical };
-	public enum HitTypes { Max, Regular, Small, VerySmall };
+	public enum Disposition { Friendly, Neutral, Hostile, ExtremeHatred };
+	public enum HitTypes { Max, Regular, Small };
 	private float currentHealth = 100f;
 	private readonly float maxHealth = 100f;
 	private readonly float minHealth = 10f;
 	public float maxHit = 10f;
 	public float regularHit = 5f;
 	public float smallHit = 1f;
-	public float verySmallHit = 0.5f;
 	private float currentSpeed;
 	public float maxSpeed = 5f;
 	public float minSpeed = 0.5f;
@@ -33,7 +33,7 @@ public class GameMaster : MonoBehaviour
 		ReduceHealth(10);
     }
 
-	public void ReduceHealth(int dmg)
+	public void ReduceHealth(float dmg)
 	{
 		currentHealth -= dmg;
 		if (currentHealth < minHealth)
@@ -49,7 +49,7 @@ public class GameMaster : MonoBehaviour
 		AddHealth(10);
 	}
 
-	public void AddHealth(int heal)
+	public void AddHealth(float heal)
 	{
 		currentHealth += heal;
 		
@@ -138,14 +138,90 @@ public class GameMaster : MonoBehaviour
 			case HitTypes.Small:
 				ret = smallHit;
 				break;
-			case HitTypes.VerySmall:
-				ret = verySmallHit;
-				break;
 			default:
 				ret = 0;
 				Debug.Log("No Value Found for HitType");
 				break;
 		}
+		return ret;
+	}
+
+	public float GetDamageAmount(Disposition myDisposition)
+    {
+		float ret;
+
+		switch (myDisposition)
+		{
+			case Disposition.Friendly:
+				ret = 0;
+				break;
+			case Disposition.Neutral:
+				ret = smallHit;
+				break;
+			case Disposition.Hostile:
+				ret = regularHit;
+				break;
+			case Disposition.ExtremeHatred:
+				ret = maxHit;
+				break;
+			default:
+				ret = 0;
+				Debug.Log("Item Tag Not Found");
+				break;
+		}
+		return ret;
+	}
+
+	public Disposition ChangeDisposition(Disposition myDisposition, bool increase)
+    {
+
+		Disposition ret;
+
+		// increase = make more hostile, otherwise decrease hositility;
+		if (increase)
+		{
+			switch (myDisposition)
+			{
+				case Disposition.Friendly:
+					ret = Disposition.Neutral;
+					break;
+				case Disposition.Neutral:
+					ret = Disposition.Hostile;
+					break;
+				case Disposition.Hostile:
+					ret = Disposition.ExtremeHatred;
+					break;
+				case Disposition.ExtremeHatred:
+					ret = Disposition.ExtremeHatred;
+					break;
+				default:
+					ret = myDisposition;
+					Debug.Log("Disposition Not Found");
+					break;
+			}
+		} else
+		{
+			switch (myDisposition)
+			{
+				case Disposition.Friendly:
+					ret = Disposition.Friendly;
+					break;
+				case Disposition.Neutral:
+					ret = Disposition.Friendly;
+					break;
+				case Disposition.Hostile:
+					ret = Disposition.Neutral;
+					break;
+				case Disposition.ExtremeHatred:
+					ret = Disposition.Hostile;
+					break;
+				default:
+					ret = myDisposition;
+					Debug.Log("Disposition Not Found");
+					break;
+			}
+		}
+		
 		return ret;
 	}
 }

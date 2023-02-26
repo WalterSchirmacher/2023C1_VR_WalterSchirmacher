@@ -22,28 +22,31 @@ public class InnerSphere : MonoBehaviour
         Debug.Log("Inner is going to sleep!");
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider collider)
     {
-        Debug.Log("Inner Hit a " + collision.gameObject.name + " " + collision.gameObject.tag);
-        if (collision.gameObject.name == "PlayerBody")
+        Debug.Log("Inner Hit a " + collider.gameObject.name + " " + collider.gameObject.tag);
+        if (collider.gameObject.name == "PlayerBody")
         {
             myParent.InnerPlayerFound = true;
-            myParent.ChasePlayer();
+            if (!myParent.isChasing)
+            {
+                myParent.ChasePlayer();
+            }
         }
     }
-    private void OnCollisionStay(Collision collision)
+    private void OnTriggerStay(Collider collider)
     {
         
-        if (collision.gameObject.name == "PlayerBody")
+        if (collider.gameObject.name == "PlayerBody")
         {
-            Debug.Log("Inner Still seeing a " + collision.gameObject.name + " " + collision.gameObject.tag);
+            Debug.Log("Inner Still seeing a " + collider.gameObject.name + " " + collider.gameObject.tag);
         }
     }
-    private void OnCollisionExit(Collision collision)
+    private void OnTriggerExit(Collider collider)
     {
-        if (collision.gameObject.name == "PlayerBody")
+        if (collider.gameObject.name == "PlayerBody")
         {
-            Debug.Log("Inner No longer see a " + collision.gameObject.name + " " + collision.gameObject.tag);
+            Debug.Log("Inner No longer see a " + collider.gameObject.name + " " + collider.gameObject.tag);
             myParent.InnerPlayerFound = false;
             
         }
