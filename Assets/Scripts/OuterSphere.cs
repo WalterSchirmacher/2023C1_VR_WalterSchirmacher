@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class OuterSphere : MonoBehaviour
 {
-    public BearFoe myParent;
+    public AnimalFoe myParent;
     public GameObject innerSphere;
+    public AIFSM aiFSM;
 
     private void Start()
     {

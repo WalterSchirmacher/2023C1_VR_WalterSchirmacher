@@ -2,23 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BearFoe : FriendOrFoe
+public class AnimalFoe : FriendOrFoe
 {
     public AudioSource audioRegular, audioMad;
+    public Collider detectedObject;
+
+
     private float theVol = 0f;
     private float randomLower = 3f;
     private float randomUpper = 10f;
     private bool stopRegularAudio = false;
     private bool stopMadAudio = false;
     private int fadeAudioTime = 10;
+
     [HideInInspector]
     public bool isChasing = false;
+    
 
     // Start is called before the first frame update
-   void Start()
+    void Start()
     {
         myStatus = GameMaster.Disposition.Hostile;
-        damage = gameMaster.GetDamageAmount(myStatus);
+        Damage = gameMaster.GetDamageAmount(myStatus);
 
         if(!audioRegular || !audioMad)
         {
@@ -33,9 +38,10 @@ public class BearFoe : FriendOrFoe
         Debug.Log("Chasing Player");
         isChasing = true;
         myStatus = GameMaster.Disposition.ExtremeHatred;
-        damage = gameMaster.GetDamageAmount(myStatus);
+        Damage = gameMaster.GetDamageAmount(myStatus);
         PauseRegularAudio();
         StartCoroutine(MadRoarAudio());
+        aiFSM.currentState = AIFSM.AIState.ChasePlayer;
     }
     
     public void StopChasePlayer()

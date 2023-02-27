@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class FriendOrFoe : MonoBehaviour
@@ -14,12 +15,20 @@ public class FriendOrFoe : MonoBehaviour
     public GameObject transparentObject;
     public GameObject innerSphere;
     public GameObject outerSphere;
+    public Vector3 myHomeLocation;
+    public AIFSM aiFSM;
+
+    public string animationIdle, animationStalk, animationChase;
+    [Tooltip("To list multiple attack animations, seperate them by a pipe (|).")]
+    public string animationAttack;
+    public List<string> aniAttacks;
+    public bool useAniList = false;
+
 
     [Tooltip("Time in seconds to wait between hits on Collision.")]
     public float damangeWaitTime = 1;
     private float dmgWaitTimer = 0f;
-    [HideInInspector]
-    public float damage { get; set; } = 0f;
+    public float Damage { get; set; } = 0f;
     private bool _canHit = true;
     public bool OuterPlayerFound { get; set; } = false;
     public bool InnerPlayerFound { get; set; } = false;
@@ -27,7 +36,9 @@ public class FriendOrFoe : MonoBehaviour
 
     [HideInInspector]
     public TransStatus currentTransState;
-   
+    [HideInInspector]
+    public Animator animator;
+
     [Tooltip("Default sets the object to the starting visibility, Partial shows with transparency, TempHidden hides it, TempVisible makes it appear.")]
     public TransStatus defaultTransState = TransStatus.Default;
 
@@ -36,11 +47,23 @@ public class FriendOrFoe : MonoBehaviour
     private int tempHiddenLayer;
     private string gTag;
 
-
+    private void Awake()
+    {
+        myHomeLocation = gameObject.transform.position;
+        animator = GetComponent<Animator>();
+    }
 
     // Start is called before the first frame update
     void Start()
     {
+
+        if (animationAttack.Contains("|"))
+        {
+            aniAttacks = animationAttack.Split('|').ToList();
+            useAniList = true;
+            Debug.Log(aniAttacks.ToString());
+        }
+
         gTag = gameObject.tag;
         string gLayerName;
 
@@ -107,7 +130,10 @@ public class FriendOrFoe : MonoBehaviour
         Debug.Log(gameObject.name + " Hit a " + collision.gameObject.name + " " + collision.gameObject.tag);
         if (collision.gameObject.name == "PlayerBody" && _canHit)
         {
-            gameMaster.ReduceHealth(damage);
+            gameMaster.ReduceHealth(Damage);
+
+            // Change myStatus to the next level of Disposition
+            myStatus = gameMaster.ChangeDisposition(myStatus, true);
             dmgWaitTimer = 0;
             _canHit = false;
         }

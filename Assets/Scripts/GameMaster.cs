@@ -139,7 +139,7 @@ public class GameMaster : MonoBehaviour
 				ret = smallHit;
 				break;
 			default:
-				ret = 0;
+				ret = 0f;
 				Debug.Log("No Value Found for HitType");
 				break;
 		}
@@ -153,7 +153,7 @@ public class GameMaster : MonoBehaviour
 		switch (myDisposition)
 		{
 			case Disposition.Friendly:
-				ret = 0;
+				ret = 0f;
 				break;
 			case Disposition.Neutral:
 				ret = smallHit;
@@ -165,7 +165,7 @@ public class GameMaster : MonoBehaviour
 				ret = maxHit;
 				break;
 			default:
-				ret = 0;
+				ret = 0f;
 				Debug.Log("Item Tag Not Found");
 				break;
 		}
