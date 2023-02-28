@@ -2707,7 +2707,7 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 1, g: 0.64300215, b: 0.19117647, a: 1}
+  m_Color: {r: 0.21698111, g: 0.15659486, b: 0.15659486, a: 1}
   m_Intensity: 4.27
   m_Range: 10
   m_SpotAngle: 30
@@ -15200,12 +15200,14 @@ MonoBehaviour:
   outerSphere: {fileID: 258301748}
   myHomeLocation: {x: 0, y: 0, z: 0}
   aiFSM: {fileID: 1621859055}
-  animationIdle: 
-  animationStalk: Walk Forward
-  animationChase: Run Forward
-  animationAttack: Attack1|Attack2|Attack3|Attack4|Attack5|Attack6|Attack7|Attack8
-  aniAttacks: []
-  useAniList: 0
+  animationIdle: Idle
+  animationStalk: WalkForward
+  animationChase: RunForward
+  animationAttack:
+  - Attack1
+  - Attack2
+  - Attack3
+  - Attack5
   damangeWaitTime: 1
   currentTransState: 0
   animator: {fileID: 0}
@@ -26540,9 +26542,7 @@ MonoBehaviour:
   animationIdle: 
   animationStalk: 
   animationChase: 
-  animationAttack: 
-  aniAttacks: []
-  useAniList: 0
+  animationAttack: []
   damangeWaitTime: 1
   currentTransState: 1
   animator: {fileID: 0}
@@ -40771,7 +40771,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentState: 0
   sightSensor: {fileID: 600542122}
-  playerAttackDistance: 1
+  playerAttackDistance: 2.5
   friendOrFoe: {fileID: 600542124}
   stalkingSpeed: 1
   runningSpeed: 3.5
@@ -53511,9 +53511,7 @@ MonoBehaviour:
   animationIdle: 
   animationStalk: 
   animationChase: 
-  animationAttack: 
-  aniAttacks: []
-  useAniList: 0
+  animationAttack: []
   damangeWaitTime: 1
   currentTransState: 0
   animator: {fileID: 0}

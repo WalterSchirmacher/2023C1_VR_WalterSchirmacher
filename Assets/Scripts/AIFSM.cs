@@ -125,7 +125,7 @@ public class AIFSM : MonoBehaviour
         agent.SetDestination(sightSensor.detectedObject.transform.position);
 
         float distanceToPlayer = Vector3.Distance(transform.position, sightSensor.detectedObject.transform.position);
-
+        Debug.Log("distance to player " + distanceToPlayer);
         if (distanceToPlayer <= playerAttackDistance && friendOrFoe.myStatus != GameMaster.Disposition.Friendly)
         {
             if(preferStalking)
@@ -147,14 +147,13 @@ public class AIFSM : MonoBehaviour
         }
         LookTo(sightSensor.detectedObject.transform.position);
 
-        if(friendOrFoe.useAniList)
-        {
-            int index = Random.Range(0, friendOrFoe.aniAttacks.Count);
-            friendOrFoe.animator.Play(friendOrFoe.aniAttacks[index]);
-        } else
-        {
-            friendOrFoe.animator.Play(friendOrFoe.animationAttack);
-        }
+
+        int index = Random.Range(0, friendOrFoe.animationAttack.Count);
+        Debug.Log("count " + friendOrFoe.animationAttack.Count);
+        Debug.Log("index " + index);
+        Debug.Log("attack with " + friendOrFoe.animationAttack[index]);
+
+        friendOrFoe.animator.Play(friendOrFoe.animationAttack[index]);
 
         float distanceToPlayer = Vector3.Distance(transform.position, sightSensor.detectedObject.transform.position);
 

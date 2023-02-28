@@ -20,9 +20,7 @@ public class FriendOrFoe : MonoBehaviour
 
     public string animationIdle, animationStalk, animationChase;
     [Tooltip("To list multiple attack animations, seperate them by a pipe (|).")]
-    public string animationAttack;
-    public List<string> aniAttacks;
-    public bool useAniList = false;
+    public List<string> animationAttack;
 
 
     [Tooltip("Time in seconds to wait between hits on Collision.")]
@@ -56,13 +54,14 @@ public class FriendOrFoe : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+    /*    Debug.Log("attack " + animationAttack);
         if (animationAttack.Contains("|"))
         {
             aniAttacks = animationAttack.Split('|').ToList();
             useAniList = true;
             Debug.Log(aniAttacks.ToString());
         }
+    */
 
         gTag = gameObject.tag;
         string gLayerName;
