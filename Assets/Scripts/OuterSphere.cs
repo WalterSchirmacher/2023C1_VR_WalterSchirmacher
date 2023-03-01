@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class OuterSphere : MonoBehaviour
 {
-    public AnimalFoe myParent;
+    public GameObject myParent;
     public GameObject innerSphere;
     public AIFSM aiFSM;
 
@@ -18,16 +18,9 @@ public class OuterSphere : MonoBehaviour
         Debug.Log("Outer Hit a " + collider.gameObject.name + " " + collider.gameObject.tag);
         if (collider.gameObject.name == "PlayerBody")
         {
-            myParent.OuterPlayerFound = true;
+          //  myParent.OuterPlayerFound = true;
             innerSphere.SetActive(true);
-            myParent.PlayerFound();
-            if(myParent.myStatus == GameMaster.Disposition.ExtremeHatred)
-            {
-                if (!myParent.isChasing)
-                {
-                    myParent.ChasePlayer();
-                }
-            }
+          //  myParent.PlayerFound();
 
         }
     }
@@ -44,9 +37,7 @@ public class OuterSphere : MonoBehaviour
         if (collider.gameObject.name == "PlayerBody")
         {
             Debug.Log("Outer No longer see a " + collider.gameObject.name + " " + collider.gameObject.tag);
-            myParent.OuterPlayerFound = false;
             innerSphere.SetActive(false);
-            myParent.PlayerLost();
         }
     }
 }

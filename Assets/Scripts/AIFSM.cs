@@ -7,6 +7,7 @@ public class AIFSM : MonoBehaviour
 {
     public enum AIState { Idle, GoHome, ChasePlayer, AttackPlayer };
     public AIState currentState = AIState.Idle;
+    private AIState formerState;
     public Sight sightSensor;
     public float playerAttackDistance;
     public FriendOrFoe friendOrFoe;
@@ -67,7 +68,7 @@ public class AIFSM : MonoBehaviour
     }
     void Idle()
     {
-        Debug.Log("Idle");
+       // Debug.Log("Idle");
         agent.isStopped = true;
 
         friendOrFoe.animator.Play(friendOrFoe.animationIdle);
@@ -83,6 +84,7 @@ public class AIFSM : MonoBehaviour
         agent.isStopped = false;
         agent.SetDestination(friendOrFoe.myHomeLocation);
         friendOrFoe.animator.Play(friendOrFoe.animationChase);
+        friendOrFoe.PlayerLost();
 
         if (sightSensor.detectedObject != null)
         {
@@ -93,7 +95,8 @@ public class AIFSM : MonoBehaviour
     {
         // Check if myStatus if Friendly (0) or Neutral (1)
         int status = (int)friendOrFoe.myStatus;
-        if(preferStalking && status < 2)
+        friendOrFoe.ChasePlayer();
+        if (preferStalking && status < 2)
         {
             Debug.Log("Stalking Player");
             friendOrFoe.animator.Play(friendOrFoe.animationStalk);

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class InnerSphere : MonoBehaviour
 {
-    public AnimalFoe myParent;
+    public GameObject myParent;
     public GameObject outerSphere;
     public AIFSM aiFSM;
 
@@ -28,11 +28,7 @@ public class InnerSphere : MonoBehaviour
         Debug.Log("Inner Hit a " + collider.gameObject.name + " " + collider.gameObject.tag);
         if (collider.gameObject.name == "PlayerBody")
         {
-            myParent.InnerPlayerFound = true;
-            if (!myParent.isChasing)
-            {
-                myParent.ChasePlayer();
-            }
+         //   myParent.InnerPlayerFound = true;
         }
     }
     private void OnTriggerStay(Collider collider)
@@ -48,7 +44,6 @@ public class InnerSphere : MonoBehaviour
         if (collider.gameObject.name == "PlayerBody")
         {
             Debug.Log("Inner No longer see a " + collider.gameObject.name + " " + collider.gameObject.tag);
-            myParent.InnerPlayerFound = false;
             
         }
     }

@@ -10,40 +10,41 @@ public class FriendOrFoe : MonoBehaviour
     public GameMaster gameMaster;
     [Tooltip("Friendly won't attack, Neutral is wary, Hostile will attack, ExtremeHatred attacks with no warning.")]
     public GameMaster.Disposition myStatus = GameMaster.Disposition.Neutral;
-    public GameObject parentObject;
-    public GameObject visibleObject;
-    public GameObject transparentObject;
-    public GameObject innerSphere;
-    public GameObject outerSphere;
-    public Vector3 myHomeLocation;
+    public GameObject parentObject, visibleObject, transparentObject;
     public AIFSM aiFSM;
-
-    public string animationIdle, animationStalk, animationChase;
+    public AudioSource audioRegular, audioMad;
+    public float volRegular = 0.5f, volMad = 0.75f;
+    public string animationIdle, animationStalk, animationChase, animationCombatIdle;
     [Tooltip("To list multiple attack animations, seperate them by a pipe (|).")]
     public List<string> animationAttack;
-
 
     [Tooltip("Time in seconds to wait between hits on Collision.")]
     public float damangeWaitTime = 1;
     private float dmgWaitTimer = 0f;
     public float Damage { get; set; } = 0f;
     private bool _canHit = true;
-    public bool OuterPlayerFound { get; set; } = false;
-    public bool InnerPlayerFound { get; set; } = false;
-
 
     [HideInInspector]
     public TransStatus currentTransState;
     [HideInInspector]
     public Animator animator;
+    [HideInInspector]
+    public Vector3 myHomeLocation;
 
     [Tooltip("Default sets the object to the starting visibility, Partial shows with transparency, TempHidden hides it, TempVisible makes it appear.")]
     public TransStatus defaultTransState = TransStatus.Default;
+    public Collider detectedObject;
 
-    private int myLayer;
-    private int tempVisLayer;
-    private int tempHiddenLayer;
+    private int myLayer, tempVisLayer, tempHiddenLayer;
     private string gTag;
+    private float randomLower = 3f;
+    private float randomUpper = 10f;
+    private bool stopRegularAudio = false;
+    private bool stopMadAudio = false;
+    private int fadeAudioTime = 10;
+
+    [HideInInspector]
+    public bool isChasing = false;
 
     private void Awake()
     {
@@ -54,14 +55,20 @@ public class FriendOrFoe : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-    /*    Debug.Log("attack " + animationAttack);
-        if (animationAttack.Contains("|"))
+        Debug.Log("My status is " + myStatus);
+        Damage = gameMaster.GetDamageAmount(myStatus);
+
+        if (!audioRegular || !audioMad)
         {
-            aniAttacks = animationAttack.Split('|').ToList();
-            useAniList = true;
-            Debug.Log(aniAttacks.ToString());
+            Debug.Log("Invalid Audio Source!");
+            Debug.Log("AudioSource: " + audioRegular);
+            Debug.Log("Short Roar: " + audioMad);
         }
-    */
+        else
+        {
+            audioRegular.volume = volRegular;
+            audioMad.volume = volMad;
+        }
 
         gTag = gameObject.tag;
         string gLayerName;
@@ -226,8 +233,64 @@ public class FriendOrFoe : MonoBehaviour
             Transform _HasChildren = child.GetComponentInChildren<Transform>();
             if (_HasChildren != null)
                 SetLayerAllChildren(child.gameObject, _layer);
-
         }
     }
 
+    public void ChasePlayer()
+    {
+        Debug.Log("Chasing Player");
+        isChasing = true;
+        myStatus = GameMaster.Disposition.ExtremeHatred;
+        Damage = gameMaster.GetDamageAmount(myStatus);
+        PauseRegularAudio();
+        StartCoroutine(MadRoarAudio());
+    }
+
+    public void PlayerLost()
+    {
+        stopRegularAudio = true;
+        stopMadAudio = true;
+    }
+
+    public void PlayerFound()
+    {
+        stopRegularAudio = false;
+        stopMadAudio = false;
+        StartCoroutine(RegularRoarAudio());
+        Debug.Log("Roar!");
+    }
+
+    IEnumerator RegularRoarAudio()
+    {
+        Debug.Log("Playing regular");
+
+        while (!stopRegularAudio)
+        {
+            audioRegular.Play();
+            yield return new WaitForSeconds(audioRegular.clip.length + Random.Range(randomLower, randomUpper));
+        }
+
+        audioRegular.FadeOut(fadeAudioTime);
+    }
+
+    IEnumerator MadRoarAudio()
+    {
+        Debug.Log("Playing mad");
+
+        while (!stopMadAudio)
+        {
+            audioMad.Play();
+            yield return new WaitForSeconds(audioMad.clip.length + (Random.Range(randomLower, randomUpper)) / 2);
+        }
+
+        audioMad.FadeOut(fadeAudioTime);
+    }
+
+    IEnumerable PauseRegularAudio()
+    {
+        stopRegularAudio = true;
+        yield return new WaitForSeconds(fadeAudioTime + 1);
+        stopRegularAudio = false;
+        StartCoroutine(RegularRoarAudio());
+    }
 }
