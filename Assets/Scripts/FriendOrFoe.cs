@@ -10,8 +10,8 @@ public class FriendOrFoe : MonoBehaviour
     public GameMaster gameMaster;
     [Tooltip("Friendly won't attack, Neutral is wary, Hostile will attack, ExtremeHatred attacks with no warning.")]
     public GameMaster.Disposition myStatus = GameMaster.Disposition.Neutral;
-    public GameObject parentObject, visibleObject, transparentObject;
-    public AIFSM aiFSM;
+    public GameObject parentObject, visibleObject, transparentObject, lightObject;
+    public NewAIFSM ai;
     public AudioSource audioRegular, audioMad;
     public float volRegular = 0.5f, volMad = 0.75f;
     public string animationIdle, animationStalk, animationChase, animationCombatIdle;
@@ -162,6 +162,10 @@ public class FriendOrFoe : MonoBehaviour
             visibleObject.SetActive(true);
             CheckAndSetLayer(myLayer);
         }
+        if (lightObject)
+        {
+            lightObject.SetActive(false);
+        }
     }
 
     [ContextMenu("Partly Transparent")]
@@ -180,6 +184,10 @@ public class FriendOrFoe : MonoBehaviour
         {
             CheckAndSetLayer(myLayer);
         }
+        if(lightObject)
+        {
+            lightObject.SetActive(true);
+        }
     }
 
     [ContextMenu("Temporarily Hides Object")]
@@ -191,6 +199,10 @@ public class FriendOrFoe : MonoBehaviour
         transparentObject.SetActive(false);
         visibleObject.SetActive(true);
         CheckAndSetLayer(tempHiddenLayer);
+        if (lightObject)
+        {
+            lightObject.SetActive(false);
+        }
     }
 
     [ContextMenu("Temporarily Makes Visible")]
@@ -202,6 +214,10 @@ public class FriendOrFoe : MonoBehaviour
         transparentObject.SetActive(false);
         visibleObject.SetActive(true);
         CheckAndSetLayer(tempVisLayer);
+        if (lightObject)
+        {
+            lightObject.SetActive(true);
+        }
     }
 
     [ContextMenu("Reset Object to Defaults")]
@@ -244,12 +260,14 @@ public class FriendOrFoe : MonoBehaviour
         Damage = gameMaster.GetDamageAmount(myStatus);
         PauseRegularAudio();
         StartCoroutine(MadRoarAudio());
+        MakePartlyTransparent();
     }
 
     public void PlayerLost()
     {
         stopRegularAudio = true;
         stopMadAudio = true;
+        MakeDefault();
     }
 
     public void PlayerFound()
@@ -258,6 +276,7 @@ public class FriendOrFoe : MonoBehaviour
         stopMadAudio = false;
         StartCoroutine(RegularRoarAudio());
         Debug.Log("Roar!");
+        
     }
 
     IEnumerator RegularRoarAudio()
