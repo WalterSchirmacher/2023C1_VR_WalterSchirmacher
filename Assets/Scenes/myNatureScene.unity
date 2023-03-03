@@ -4814,7 +4814,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -4216859302048453862, guid: 9a1421936695f444d97500bc80bfb25f, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 9a1421936695f444d97500bc80bfb25f, type: 3}
       propertyPath: m_LocalScale.x
@@ -8721,6 +8721,10 @@ PrefabInstance:
       value: -0.8472435
       objectReference: {fileID: 0}
     - target: {fileID: 739643002308740412, guid: f5b41ba4c79702547a89de7544b80656, type: 3}
+      propertyPath: m_Name
+      value: BearLight
+      objectReference: {fileID: 0}
+    - target: {fileID: 739643002308740412, guid: f5b41ba4c79702547a89de7544b80656, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
@@ -9398,7 +9402,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7292658344771522932, guid: f5b41ba4c79702547a89de7544b80656, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7292658344771522932, guid: f5b41ba4c79702547a89de7544b80656, type: 3}
       propertyPath: m_LocalPosition.x
@@ -9610,6 +9614,11 @@ PrefabInstance:
 --- !u!4 &355819382 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7292658344771522932, guid: f5b41ba4c79702547a89de7544b80656, type: 3}
+  m_PrefabInstance: {fileID: 355819381}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &355819383 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 739643002308740412, guid: f5b41ba4c79702547a89de7544b80656, type: 3}
   m_PrefabInstance: {fileID: 355819381}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &357531192
@@ -15057,7 +15066,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_StoppingDistance: 2.25
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -15077,12 +15086,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a4058e2dd7828f47a5b029b83624cea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameMaster: {fileID: 1362153820}
   myStatus: 2
   parentObject: {fileID: 600542121}
   visibleObject: {fileID: 928941751}
   transparentObject: {fileID: 24364892}
-  lightObject: {fileID: 0}
+  lightObject: {fileID: 355819383}
   ai: {fileID: 1621859056}
   audioRegular: {fileID: 1847989724}
   audioMad: {fileID: 664632746}
@@ -15091,7 +15099,6 @@ MonoBehaviour:
   animationIdle: Idle
   animationStalk: WalkForward
   animationChase: RunForward
-  animationCombatIdle: Combat Idle
   animationAttack:
   - Attack1
   - Attack2
@@ -27205,7 +27212,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -4216859302048453862, guid: 9a1421936695f444d97500bc80bfb25f, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 9a1421936695f444d97500bc80bfb25f, type: 3}
       propertyPath: m_LocalScale.x
@@ -33491,7 +33498,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 482002, guid: 3829a4e580ff6464d98ae3c7b4ce735c, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 482002, guid: 3829a4e580ff6464d98ae3c7b4ce735c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -40742,7 +40749,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentState: 0
   sightSensor: {fileID: 600542122}
-  playerAttackDistance: 2.5
+  playerAttackDistance: 0.5
   friendOrFoe: {fileID: 600542124}
   stalkingSpeed: 1
   runningSpeed: 3.5
@@ -43579,6 +43586,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 4207a14823e50e6438f37b401c727159, type: 2}
+    - target: {fileID: 9547338, guid: f8243bb353e5cb74481bb26fe62fd298, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f8243bb353e5cb74481bb26fe62fd298, type: 3}
 --- !u!4 &1733784373 stripped
@@ -43613,29 +43624,72 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a4058e2dd7828f47a5b029b83624cea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameMaster: {fileID: 1362153820}
   myStatus: 2
   parentObject: {fileID: 1733784376}
   visibleObject: {fileID: 1733784375}
   transparentObject: {fileID: 1733784374}
-  lightObject: {fileID: 0}
+  lightObject: {fileID: 1863632967}
   ai: {fileID: 2039553994}
   audioRegular: {fileID: 1981628229}
   audioMad: {fileID: 615202477}
   volRegular: 0.5
   volMad: 0.75
-  animationIdle: 
-  animationStalk: 
-  animationChase: 
-  animationCombatIdle: 
-  animationAttack: []
+  animationIdle: Sit
+  animationStalk: Walk
+  animationChase: Run
+  animationAttack:
+  - Attack1
+  - Attack2
   damangeWaitTime: 1
   currentTransState: 0
   animator: {fileID: 0}
   myHomeLocation: {x: 0, y: 0, z: 0}
-  defaultTransState: 0
+  defaultTransState: 2
   detectedObject: {fileID: 0}
   isChasing: 0
+--- !u!114 &1733784378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1733784376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c385aa289a26e804398e73cd73343d9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  distance: 10
+  angle: 90
+  objectsLayers:
+    serializedVersion: 2
+    m_Bits: 16384
+  obstancesLayers:
+    serializedVersion: 2
+    m_Bits: 3968
+  detectedObject: {fileID: 0}
+--- !u!195 &1733784384
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1733784376}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 10
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 1
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1001 &1735442389
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -47406,6 +47460,99 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ec78ebca7517fb745a45a931cb06d2bd, type: 3}
+--- !u!1 &1863632967
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1863632968}
+  - component: {fileID: 1863632969}
+  m_Layer: 0
+  m_Name: Point Light
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1863632968
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1863632967}
+  m_LocalRotation: {x: -0, y: 0.029667452, z: -0, w: 0.9995598}
+  m_LocalPosition: {x: -1.25, y: -1.43, z: -5.85}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1733784373}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!108 &1863632969
+Light:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1863632967}
+  m_Enabled: 1
+  serializedVersion: 10
+  m_Type: 2
+  m_Shape: 0
+  m_Color: {r: 0.8113208, g: 0.5936494, b: 0, a: 1}
+  m_Intensity: 1
+  m_Range: 1
+  m_SpotAngle: 30
+  m_InnerSpotAngle: 21.80208
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.02
+    m_NormalBias: 0.1
+    m_NearPlane: 0.1
+    m_CullingMatrixOverride:
+      e00: 1
+      e01: 0
+      e02: 0
+      e03: 0
+      e10: 0
+      e11: 1
+      e12: 0
+      e13: 0
+      e20: 0
+      e21: 0
+      e22: 1
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    m_UseCullingMatrixOverride: 0
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingLayerMask: 1
+  m_Lightmapping: 1
+  m_LightShadowCasterMode: 0
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
 --- !u!4 &1863696923 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 429508, guid: 9c74caa742791864f9c678287121e6c9, type: 3}
@@ -48259,7 +48406,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4787067198595134, guid: 3f9dcd6bf73fe2f40806fb0074f456c4, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4787067198595134, guid: 3f9dcd6bf73fe2f40806fb0074f456c4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -49962,7 +50109,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 482002, guid: 3829a4e580ff6464d98ae3c7b4ce735c, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 482002, guid: 3829a4e580ff6464d98ae3c7b4ce735c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -50699,7 +50846,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 482002, guid: 3829a4e580ff6464d98ae3c7b4ce735c, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 482002, guid: 3829a4e580ff6464d98ae3c7b4ce735c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -52412,10 +52559,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
-  sightSensor: {fileID: 600542122}
-  playerAttackDistance: 2.5
-  friendOrFoe: {fileID: 600542124}
-  stalkingSpeed: 1
+  sightSensor: {fileID: 1733784378}
+  playerAttackDistance: 0.5
+  friendOrFoe: {fileID: 1733784377}
+  stalkingSpeed: 1.5
   runningSpeed: 3.5
   waitingTime: 30
   goHome: 0

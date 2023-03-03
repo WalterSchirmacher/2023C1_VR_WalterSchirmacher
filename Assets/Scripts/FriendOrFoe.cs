@@ -7,15 +7,13 @@ public class FriendOrFoe : MonoBehaviour
 {
 
     public enum TransStatus { Default, Partial, TempHidden, TempVisible };
-    public GameMaster gameMaster;
     [Tooltip("Friendly won't attack, Neutral is wary, Hostile will attack, ExtremeHatred attacks with no warning.")]
     public GameMaster.Disposition myStatus = GameMaster.Disposition.Neutral;
     public GameObject parentObject, visibleObject, transparentObject, lightObject;
     public NewAIFSM ai;
     public AudioSource audioRegular, audioMad;
     public float volRegular = 0.5f, volMad = 0.75f;
-    public string animationIdle, animationStalk, animationChase, animationCombatIdle;
-    [Tooltip("To list multiple attack animations, seperate them by a pipe (|).")]
+    public string animationIdle, animationStalk, animationChase;
     public List<string> animationAttack;
 
     [Tooltip("Time in seconds to wait between hits on Collision.")]
@@ -56,7 +54,7 @@ public class FriendOrFoe : MonoBehaviour
     void Start()
     {
         Debug.Log("My status is " + myStatus);
-        Damage = gameMaster.GetDamageAmount(myStatus);
+        Damage = GameMaster.Instance.GetDamageAmount(myStatus);
 
         if (!audioRegular || !audioMad)
         {
@@ -136,10 +134,10 @@ public class FriendOrFoe : MonoBehaviour
         Debug.Log(gameObject.name + " Hit a " + collision.gameObject.name + " " + collision.gameObject.tag);
         if (collision.gameObject.name == "PlayerBody" && _canHit)
         {
-            gameMaster.ReduceHealth(Damage);
+            GameMaster.Instance.ReduceHealth(Damage);
 
             // Change myStatus to the next level of Disposition
-            myStatus = gameMaster.ChangeDisposition(myStatus, true);
+            myStatus = GameMaster.Instance.ChangeDisposition(myStatus, true);
             dmgWaitTimer = 0;
             _canHit = false;
         }
@@ -257,7 +255,7 @@ public class FriendOrFoe : MonoBehaviour
         Debug.Log("Chasing Player");
         isChasing = true;
         myStatus = GameMaster.Disposition.ExtremeHatred;
-        Damage = gameMaster.GetDamageAmount(myStatus);
+        Damage = GameMaster.Instance.GetDamageAmount(myStatus);
         PauseRegularAudio();
         StartCoroutine(MadRoarAudio());
         MakePartlyTransparent();
@@ -277,6 +275,26 @@ public class FriendOrFoe : MonoBehaviour
         StartCoroutine(RegularRoarAudio());
         Debug.Log("Roar!");
         
+    }
+
+    public void PlayAttackAnimation(string ani)
+    {
+        ResetAnimates();
+        animator.SetTrigger(ani);
+    }
+
+    public void PlayNewAnimation(string ani)
+    {
+        ResetAnimates();
+        animator.SetBool(ani, true);
+    }
+
+    public void ResetAnimates()
+    {
+        foreach (AnimatorControllerParameter parameter in animator.parameters)
+        {
+            animator.SetBool(parameter.name, false);
+        }
     }
 
     IEnumerator RegularRoarAudio()

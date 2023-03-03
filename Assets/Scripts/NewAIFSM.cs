@@ -79,8 +79,7 @@ public class NewAIFSM : MonoBehaviour
         {
             //On Enter
             agent.isStopped = true;
-            friendOrFoe.animator.Play(friendOrFoe.animationIdle);
-
+            friendOrFoe.PlayNewAnimation(friendOrFoe.animationIdle);
         }
         else if (step == Fsm.Step.Update)
         {
@@ -107,7 +106,7 @@ public class NewAIFSM : MonoBehaviour
             //On Enter
             agent.isStopped = false;
             agent.SetDestination(friendOrFoe.myHomeLocation);
-            friendOrFoe.animator.Play(friendOrFoe.animationChase);
+            friendOrFoe.PlayNewAnimation(friendOrFoe.animationChase);
             friendOrFoe.PlayerLost();
 
         }
@@ -125,7 +124,7 @@ public class NewAIFSM : MonoBehaviour
         else if (step == Fsm.Step.Exit)
         {
             //On Exit
-            friendOrFoe.animator.Play(friendOrFoe.animationIdle);
+            friendOrFoe.PlayNewAnimation(friendOrFoe.animationIdle);
         }
     }
     void Fsm_ChaseState(Fsm fsm, Fsm.Step step, Fsm.State state)
@@ -140,14 +139,13 @@ public class NewAIFSM : MonoBehaviour
 
             if (preferStalking && status < 2) 
             {
-                Debug.Log("Stalking Player");
-                friendOrFoe.animator.Play(friendOrFoe.animationStalk);
+                friendOrFoe.PlayNewAnimation(friendOrFoe.animationStalk);
                 agent.speed = stalkingSpeed;
             }
             else
             {
                 Debug.Log("Chasing Player");
-                friendOrFoe.animator.Play(friendOrFoe.animationChase);
+                friendOrFoe.PlayNewAnimation(friendOrFoe.animationChase);
                 agent.speed = runningSpeed;
             }
             
@@ -188,7 +186,7 @@ public class NewAIFSM : MonoBehaviour
         else if (step == Fsm.Step.Exit)
         {
             //On Exit
-            friendOrFoe.animator.Play(friendOrFoe.animationIdle);
+            friendOrFoe.PlayNewAnimation(friendOrFoe.animationIdle);
         }
     }
     void Fsm_AttackState(Fsm fsm, Fsm.Step step, Fsm.State state)
@@ -220,7 +218,7 @@ public class NewAIFSM : MonoBehaviour
             Debug.Log("index " + index);
             Debug.Log("attack with " + friendOrFoe.animationAttack[index]);
 
-            friendOrFoe.animator.Play(friendOrFoe.animationAttack[index]);
+            friendOrFoe.PlayAttackAnimation(friendOrFoe.animationAttack[index]);
 
             float distanceToPlayer = Vector3.Distance(transform.position, sightSensor.detectedObject.transform.position);
 
@@ -235,15 +233,8 @@ public class NewAIFSM : MonoBehaviour
         else if (step == Fsm.Step.Exit)
         {
             //On Exit
-            if (!string.IsNullOrWhiteSpace(friendOrFoe.animationCombatIdle))
-            {
-                friendOrFoe.animator.Play(friendOrFoe.animationCombatIdle);
-            }
-            else
-            {
-                friendOrFoe.animator.Play(friendOrFoe.animationIdle);
-            }
-            
+            friendOrFoe.PlayNewAnimation(friendOrFoe.animationIdle);
+
         }
     }
 

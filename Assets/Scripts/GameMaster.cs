@@ -5,7 +5,10 @@ using Unity.Mathematics;
 using UnityEngine.XR.Interaction.Toolkit;
 
 public class GameMaster : MonoBehaviour
+
 {
+	public static GameMaster Instance;
+
 	public ActionBasedContinuousMoveProvider abContinousMovePB;
 	public enum HealthStatus { Healthy, OK, Tired, Bad, Critical };
 	public enum Disposition { Friendly, Neutral, Hostile, ExtremeHatred };
@@ -20,6 +23,18 @@ public class GameMaster : MonoBehaviour
 	public float maxSpeed = 5f;
 	public float minSpeed = 0.5f;
 	public GameObject thePlayer;
+
+    private void Awake()
+    {
+        if(Instance == null)
+        {
+			Instance = this;
+        }
+		else
+        {
+			Destroy(this);
+        }
+    }
 
     public void Start()
     {
