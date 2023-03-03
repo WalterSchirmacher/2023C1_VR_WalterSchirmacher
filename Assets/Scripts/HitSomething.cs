@@ -46,6 +46,7 @@ public class HitSomething : MonoBehaviour
         }
     }
 
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.name != "Terrain" && collision.gameObject.tag != "DetectorSphere")

@@ -16,15 +16,46 @@ public class GameMaster : MonoBehaviour
 	private float currentHealth = 100f;
 	private readonly float maxHealth = 100f;
 	private readonly float minHealth = 10f;
+	[Range(1f,10f)]
+	public float healAmount = 5f;
 	public float maxHit = 10f;
 	public float regularHit = 5f;
 	public float smallHit = 1f;
 	private float currentSpeed;
 	public float maxSpeed = 5f;
 	public float minSpeed = 0.5f;
+	public float startStationaryTime = 0f;
+	//private Timer timer;
 	public GameObject thePlayer;
+	private bool moving = false;
+	public bool IsMoving
+	{ 
+		get
+		{
+			return moving;
+		}
 
-    private void Awake()
+		set
+		{
+			/*	if (value == true)
+				{
+					//	timer = Timer.Register(1f, HealPlayer, isLooped: true);
+					StartCoroutine(HealPlayer());
+					Debug.Log("heal");
+				} 
+				else
+				{
+					//	Timer.Cancel(timer);
+					StopCoroutine(HealPlayer());
+					Debug.Log("no healing");
+				}
+			(
+			*/
+			moving = value;
+		}
+	}
+
+	private void Awake()
     {
         if(Instance == null)
         {
@@ -34,6 +65,7 @@ public class GameMaster : MonoBehaviour
         {
 			Destroy(this);
         }
+		IsMoving = true;
     }
 
     public void Start()
@@ -238,5 +270,12 @@ public class GameMaster : MonoBehaviour
 		}
 		
 		return ret;
+	}
+	IEnumerator HealPlayer()
+	{
+		Debug.Log("Healing player coroutine");
+		yield return new WaitForSeconds(1f);
+		AddHealth(healAmount);
+		Debug.Log("healed");
 	}
 }
