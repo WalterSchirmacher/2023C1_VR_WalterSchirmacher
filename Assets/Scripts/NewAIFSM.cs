@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,11 +12,11 @@ public class NewAIFSM : MonoBehaviour
     // Setup FSM
     Fsm _fsm;
     Fsm.State _idleState;
-    Fsm.State _gohomeState;
+    Fsm.State _doPatrolState;
     Fsm.State _chaseState;
     Fsm.State _attackState;
 
-    public enum AIState { Idle, GoHome, ChasePlayer, AttackPlayer };
+    public enum AIState { Idle, DoPatrol, ChasePlayer, AttackPlayer };
     public AIState currentState = AIState.Idle;
     public Sight sightSensor;
     public float playerAttackDistance;
@@ -29,9 +30,13 @@ public class NewAIFSM : MonoBehaviour
     private float waitingTimer = 0f;
     private NavMeshAgent agent;
     private bool isWaiting = false;
-    public bool goHome = false;
     public bool preferStalking = true;
     private Fsm.State cState;
+    public bool doPatrol = true;
+    public GameObject patrolPoints;
+    private Vector3[] patrolPointList = new Vector3[1];
+   // private List<Vector3> patrolPointList;
+    private int patrolIndex = 0;
 
     void Awake()
     {
@@ -42,12 +47,26 @@ public class NewAIFSM : MonoBehaviour
     void Start()
     {
         _idleState = Fsm_IdleState;
-        _gohomeState = Fsm_GoHomeState;
+        _doPatrolState = Fsm_DoPatrol;
         _chaseState = Fsm_ChaseState;
         _attackState = Fsm_AttackState;
 
         _fsm = new Fsm();
         _fsm.Start(_idleState);
+
+
+        Array.Resize(ref patrolPointList, patrolPoints.transform.childCount-1);
+
+        // Find all Patrol Point Game Objects in Parent and add to list
+        for(int i = 0; i < patrolPoints.transform.childCount-1; i++)
+        {
+            patrolPointList[i] = patrolPoints.transform.GetChild(i).gameObject.transform.position;
+        }
+
+    //    foreach (Transform child in patrolPoints.transform)
+  //      {
+         //   patrolPointList.(child.gameObject.transform.position);
+     //   }
     }
 
     // Update is called once per frame
@@ -60,10 +79,10 @@ public class NewAIFSM : MonoBehaviour
         if (waitingTimer > waitingTime && isWaiting && cState == _idleState)
         {
             isWaiting = false;
-            if (goHome)
+            if (doPatrol)
             {
-                //   currentState = AIState.GoHome;
-                _fsm.TransitionTo(_gohomeState);
+                //   currentState = AIState.DoPatrol;
+                _fsm.TransitionTo(_doPatrolState);
             }
             else
             {
@@ -99,13 +118,13 @@ public class NewAIFSM : MonoBehaviour
 
         }
     }
-    void Fsm_GoHomeState(Fsm fsm, Fsm.Step step, Fsm.State state)
+    void Fsm_DoPatrol(Fsm fsm, Fsm.Step step, Fsm.State state)
     {
         if (step == Fsm.Step.Enter)
         {
             //On Enter
             agent.isStopped = false;
-            agent.SetDestination(friendOrFoe.myHomeLocation);
+            agent.SetDestination(patrolPointList[patrolIndex]);
             friendOrFoe.PlayNewAnimation(friendOrFoe.animationChase);
             friendOrFoe.PlayerLost();
 
@@ -118,6 +137,18 @@ public class NewAIFSM : MonoBehaviour
             //    currentState = AIState.ChasePlayer;
                 cState = _chaseState;
                 fsm.TransitionTo(_chaseState);
+            }
+            else
+            {
+                if(agent.remainingDistance <= agent.stoppingDistance)
+                {
+                    patrolIndex += 1;
+                    if(patrolIndex == patrolPointList.Length)
+                    {
+                        patrolIndex = 0;
+                    }
+                    agent.SetDestination(patrolPointList[patrolIndex]);
+                }
             }
 
         }
@@ -170,7 +201,7 @@ public class NewAIFSM : MonoBehaviour
             agent.SetDestination(sightSensor.detectedObject.transform.position);
 
             float distanceToPlayer = Vector3.Distance(transform.position, sightSensor.detectedObject.transform.position);
-            Debug.Log("distance to player " + distanceToPlayer);
+         //   Debug.Log("distance to player " + distanceToPlayer);
             if (distanceToPlayer <= playerAttackDistance && friendOrFoe.myStatus != GameMaster.Disposition.Friendly)
             {
                 if (preferStalking)
@@ -213,7 +244,7 @@ public class NewAIFSM : MonoBehaviour
             //   LookTo(sightSensor.detectedObject.transform.position);
             transform.LookAt(sightSensor.detectedObject.transform.position);
 
-            int index = Random.Range(0, friendOrFoe.animationAttack.Count);
+            int index = UnityEngine.Random.Range(0, friendOrFoe.animationAttack.Count);
             Debug.Log("count " + friendOrFoe.animationAttack.Count);
             Debug.Log("index " + index);
             Debug.Log("attack with " + friendOrFoe.animationAttack[index]);

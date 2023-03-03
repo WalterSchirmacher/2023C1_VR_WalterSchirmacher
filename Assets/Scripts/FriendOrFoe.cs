@@ -34,7 +34,7 @@ public class FriendOrFoe : MonoBehaviour
     public Collider detectedObject;
 
     private int myLayer, tempVisLayer, tempHiddenLayer;
-    private string gTag;
+    public string gTag;
     private float randomLower = 3f;
     private float randomUpper = 10f;
     private bool stopRegularAudio = false;
@@ -147,7 +147,7 @@ public class FriendOrFoe : MonoBehaviour
     [ContextMenu("Make Default")]
     public void MakeDefault()
     {
-        Debug.Log("Set to Default");
+   //     Debug.Log("Set to Default");
 
         if(defaultTransState == TransStatus.Partial)
         {
@@ -169,7 +169,7 @@ public class FriendOrFoe : MonoBehaviour
     [ContextMenu("Partly Transparent")]
     public void MakePartlyTransparent()
     {
-        Debug.Log("Make Partly Transparent");
+     //   Debug.Log("Make Partly Transparent");
 
         currentTransState = TransStatus.Partial;
         visibleObject.SetActive(false);
@@ -191,7 +191,7 @@ public class FriendOrFoe : MonoBehaviour
     [ContextMenu("Temporarily Hides Object")]
     public void MakeTempHidden()
     {
-        Debug.Log("Make Hidden Temporarily");
+  //      Debug.Log("Make Hidden Temporarily");
 
         currentTransState = TransStatus.TempHidden;
         transparentObject.SetActive(false);
@@ -206,7 +206,7 @@ public class FriendOrFoe : MonoBehaviour
     [ContextMenu("Temporarily Makes Visible")]
     public void MakeTempVisible()
     {
-        Debug.Log("Make Hidden Temporarily");
+    //    Debug.Log("Make Hidden Temporarily");
 
         currentTransState = TransStatus.TempVisible;
         transparentObject.SetActive(false);
@@ -221,7 +221,7 @@ public class FriendOrFoe : MonoBehaviour
     [ContextMenu("Reset Object to Defaults")]
     public void ResetObject()
     {
-        Debug.Log("Resetting Object");
+     //   Debug.Log("Resetting Object");
 
         currentTransState = TransStatus.Default;
         transparentObject.SetActive(false);
@@ -252,7 +252,7 @@ public class FriendOrFoe : MonoBehaviour
 
     public void ChasePlayer()
     {
-        Debug.Log("Chasing Player");
+    //    Debug.Log("Chasing Player");
         isChasing = true;
         myStatus = GameMaster.Disposition.ExtremeHatred;
         Damage = GameMaster.Instance.GetDamageAmount(myStatus);
@@ -299,7 +299,7 @@ public class FriendOrFoe : MonoBehaviour
 
     IEnumerator RegularRoarAudio()
     {
-        Debug.Log("Playing regular");
+    //    Debug.Log("Playing regular");
 
         while (!stopRegularAudio)
         {
@@ -312,7 +312,7 @@ public class FriendOrFoe : MonoBehaviour
 
     IEnumerator MadRoarAudio()
     {
-        Debug.Log("Playing mad");
+    //    Debug.Log("Playing mad");
 
         while (!stopMadAudio)
         {
