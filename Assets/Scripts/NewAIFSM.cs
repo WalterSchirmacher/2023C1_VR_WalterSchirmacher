@@ -33,40 +33,51 @@ public class NewAIFSM : MonoBehaviour
     public bool preferStalking = true;
     private Fsm.State cState;
     public bool doPatrol = true;
+    public bool randomPatrol = true;
     public GameObject patrolPoints;
-    private Vector3[] patrolPointList = new Vector3[1];
-   // private List<Vector3> patrolPointList;
+    private List<Vector3> patrolPointList;
+    private List<Vector3> randomPointList;
     private int patrolIndex = 0;
 
     void Awake()
     {
         agent = friendOrFoe.GetComponent<NavMeshAgent>();
+        patrolPointList = new List<Vector3>();
+        randomPointList = new List<Vector3>();
+
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        // Find all Patrol Point Game Objects in Parent and add to list
+
+       String gName = patrolPoints.name;
+
+        foreach (Transform child in patrolPoints.GetComponentsInChildren<Transform>())
+        {
+            if(child.gameObject.name != gName)
+            {
+                patrolPointList.Add(child.gameObject.transform.position);
+            }
+   
+        }
+    
+   /*     foreach (Vector3 vec in patrolPointList)
+        {
+            Vector3 v = vec;
+            Debug.Log(v.ToString());
+        }
+   */
+
         _idleState = Fsm_IdleState;
         _doPatrolState = Fsm_DoPatrol;
         _chaseState = Fsm_ChaseState;
         _attackState = Fsm_AttackState;
 
         _fsm = new Fsm();
-        _fsm.Start(_idleState);
+        _fsm.Start(_doPatrolState);
 
-
-        Array.Resize(ref patrolPointList, patrolPoints.transform.childCount-1);
-
-        // Find all Patrol Point Game Objects in Parent and add to list
-        for(int i = 0; i < patrolPoints.transform.childCount-1; i++)
-        {
-            patrolPointList[i] = patrolPoints.transform.GetChild(i).gameObject.transform.position;
-        }
-
-    //    foreach (Transform child in patrolPoints.transform)
-  //      {
-         //   patrolPointList.(child.gameObject.transform.position);
-     //   }
     }
 
     // Update is called once per frame
@@ -124,7 +135,10 @@ public class NewAIFSM : MonoBehaviour
         {
             //On Enter
             agent.isStopped = false;
-            agent.SetDestination(patrolPointList[patrolIndex]);
+
+            Debug.Log("Starting for " + patrolIndex + " and I am " + friendOrFoe.gameObject.name);
+
+            agent.SetDestination(GetPatrolDestination());
             friendOrFoe.PlayNewAnimation(friendOrFoe.animationChase);
             friendOrFoe.PlayerLost();
 
@@ -140,14 +154,27 @@ public class NewAIFSM : MonoBehaviour
             }
             else
             {
-                if(agent.remainingDistance <= agent.stoppingDistance)
+                if (!agent.pathPending)
                 {
-                    patrolIndex += 1;
-                    if(patrolIndex == patrolPointList.Length)
+                    if (agent.remainingDistance <= agent.stoppingDistance)
                     {
-                        patrolIndex = 0;
+                        if (!agent.hasPath || agent.velocity.sqrMagnitude == 0f)
+                        {
+                            // Done
+                           // Debug.Log("Executes 2 times");
+                         /*   if (patrolIndex >= patrolPointList.Count-1)
+                            { // if it's a last point
+                                patrolIndex = 0;
+                            }
+                            else
+                            {
+                                patrolIndex++;
+                            } 
+                           agent.SetDestination(patrolPointList[patrolIndex]);
+                         */
+                            agent.SetDestination(GetPatrolDestination());
+                        }
                     }
-                    agent.SetDestination(patrolPointList[patrolIndex]);
                 }
             }
 
@@ -267,6 +294,48 @@ public class NewAIFSM : MonoBehaviour
             friendOrFoe.PlayNewAnimation(friendOrFoe.animationIdle);
 
         }
+    }
+
+    private Vector3 GetPatrolDestination()
+    {
+        Vector3 vic;
+        if (randomPatrol)
+        {
+          //  Debug.Log("Random patrol");
+            if (randomPointList.Count == 0)
+            {
+                randomPointList = new List<Vector3>(patrolPointList);
+            }
+            int randomIndex = UnityEngine.Random.Range(0, randomPointList.Count);
+            vic = randomPointList[randomIndex];
+        //    Debug.Log("randominzing..." + randomIndex);
+        //    Debug.Log("random list is " + randomPointList[randomIndex].ToString());
+
+            randomPointList.Remove(randomPointList[randomIndex]);
+
+        }
+        else
+        {
+            vic = patrolPointList[patrolIndex];
+            patrolIndex++;
+
+            if(patrolIndex == patrolPointList.Count)
+            {
+                patrolIndex = 0;
+            }
+
+         /*   if (patrolIndex == patrolPointList.Count - 1)
+            { // if it's a last point
+                patrolIndex = 0;
+            }
+            else
+            {
+                patrolIndex++;
+            }*/
+            
+        }
+
+        return vic;
     }
 
 }
