@@ -4,6 +4,7 @@ using UnityEngine;
 using Unity.Mathematics;
 using UnityEngine.XR.Interaction.Toolkit;
 using TMPro;
+using UnityTimer;
 
 public class GameMaster : MonoBehaviour
 
@@ -18,7 +19,8 @@ public class GameMaster : MonoBehaviour
 	private readonly float maxHealth = 100f;
 	private readonly float minHealth = 10f;
 	[Range(1f,10f)]
-	public float healAmount = 5f;
+	public float healAmount = 1f;
+	public float healWaitTime = 3f;
 	public float maxHit = 10f;
 	public float regularHit = 5f;
 	public float smallHit = 1f;
@@ -31,7 +33,7 @@ public class GameMaster : MonoBehaviour
 	private TextMeshProUGUI radar1, radar2;
 	public SightDetector sightDetector;
 
-	//private Timer timer;
+	private Timer timer;
 	public GameObject thePlayer;
 	private bool moving = false;
 	public bool IsMoving
@@ -43,20 +45,17 @@ public class GameMaster : MonoBehaviour
 
 		set
 		{
-			/*	if (value == true)
+				if (value == true)
 				{
-					//	timer = Timer.Register(1f, HealPlayer, isLooped: true);
-					StartCoroutine(HealPlayer());
+					timer = Timer.Register(healWaitTime, TimedHealPlayer, isLooped: true);
 					Debug.Log("heal");
 				} 
 				else
 				{
-					//	Timer.Cancel(timer);
-					StopCoroutine(HealPlayer());
+						Timer.Cancel(timer);
 					Debug.Log("no healing");
 				}
-			(
-			*/
+		
 			moving = value;
 		}
 	}
@@ -288,11 +287,8 @@ public class GameMaster : MonoBehaviour
 		
 		return ret;
 	}
-	IEnumerator HealPlayer()
-	{
-		Debug.Log("Healing player coroutine");
-		yield return new WaitForSeconds(1f);
+	public void TimedHealPlayer()
+    {
 		AddHealth(healAmount);
-		Debug.Log("healed");
 	}
 }
