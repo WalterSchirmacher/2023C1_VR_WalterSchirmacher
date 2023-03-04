@@ -54,7 +54,7 @@ public class Sight : MonoBehaviour
                 {
                     detectedObject = collider;
                     firstSighting = false;
-                    Debug.Log("Found " + collider.gameObject.name);
+                //    Debug.Log("Found " + collider.gameObject.name);
                     break;
                 }
             }

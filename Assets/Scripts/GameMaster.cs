@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Mathematics;
 using UnityEngine.XR.Interaction.Toolkit;
+using TMPro;
 
 public class GameMaster : MonoBehaviour
 
@@ -25,6 +26,11 @@ public class GameMaster : MonoBehaviour
 	public float maxSpeed = 5f;
 	public float minSpeed = 0.5f;
 	public float startStationaryTime = 0f;
+	public MeterScript healthMeter;
+	public GameObject radar1UI, radar2UI;
+	private TextMeshProUGUI radar1, radar2;
+	public SightDetector sightDetector;
+
 	//private Timer timer;
 	public GameObject thePlayer;
 	private bool moving = false;
@@ -68,13 +74,24 @@ public class GameMaster : MonoBehaviour
 		IsMoving = true;
     }
 
-    public void Start()
-    {
+	public void Start()
+	{
 		currentSpeed = abContinousMovePB.moveSpeed;
 		Debug.Log("Current Speed is " + currentSpeed);
-    }
+		healthMeter.SetMaxHealth(maxHealth);
+		radar1 = radar1UI.GetComponent<TextMeshProUGUI>();
+		radar2 = radar2UI.GetComponent<TextMeshProUGUI>();
+	}
+    public void FixedUpdate()
+    {
+		healthMeter.SetHealth(currentHealth);
+	//	Debug.Log("current health " + currentHealth);
+		radar1.SetText("Animals: " + sightDetector.animals + "<br>Trees: " + sightDetector.trees + "<br>Other: " + sightDetector.other);
+		radar2.SetText("Rocks: " + sightDetector.rocks + "<br>Bushes: " + sightDetector.bushes);
+	}
 
-	[ContextMenu("Reduce Health Test" )]
+
+    [ContextMenu("Reduce Health Test" )]
 	public void TestReduceHelath()
     {
 		ReduceHealth(10);

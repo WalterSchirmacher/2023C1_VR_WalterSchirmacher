@@ -2,34 +2,86 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NewBehaviourScript : MonoBehaviour
+public class SightDetector : MonoBehaviour
 {
+
+    public int animals, rocks, plants, trees, bushes, other;
     // Start is called before the first frame update
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        animals = rocks = plants = trees = bushes = other = 0;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        string gTag = other.gameObject.tag;
-        //   Debug.Log("I see a: " + gTag + ", and it is a: " + other.gameObject.name);
+        AddRadar(other.gameObject.tag);
     }
     private void OnTriggerStay(Collider other)
     {
-        string gTag = other.gameObject.tag;
+       // string gTag = other.gameObject.tag;
         //   Debug.Log("I still see a: " + gTag + ", and it is a: " + other.gameObject.name);
     }
 
     private void OnTriggerExit(Collider other)
     {
-        string gTag = other.gameObject.tag;
-        //    Debug.Log("I no longer see a: " + gTag + ", and it is a: " + other.gameObject.name);
+      //  string gTag = other.gameObject.tag;
+          SubtractRadar(other.gameObject.tag);
     }
+
+    void AddRadar(string gTag)
+    {
+        switch (gTag)
+        {
+            case "Rock":
+                rocks++;
+                break;
+            case "Tree":
+                trees++;
+                break;
+            case "Bush":
+                bushes++;
+                break;
+            case "Animal":
+                animals++;
+                break;
+            case "Mushroom":
+                other++;
+                break;
+            case "MonsterPlant":
+                other++;
+                break;
+            default:
+                Debug.Log("Item Tag Not Found");
+                break;
+        }
+    }
+
+    void SubtractRadar(string gTag)
+    {
+        switch (gTag)
+        {
+            case "Rock":
+                rocks--;
+                break;
+            case "Tree":
+                trees--;
+                break;
+            case "Bush":
+                bushes--;
+                break;
+            case "Animal":
+                animals--;
+                break;
+            case "Mushroom":
+                other--;
+                break;
+            case "MonsterPlant":
+                other--;
+                break;
+            default:
+                Debug.Log("Item Tag Not Found");
+                break;
+        }
+    }
+
 }
