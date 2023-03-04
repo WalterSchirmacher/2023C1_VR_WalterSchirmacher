@@ -357,7 +357,7 @@ namespace TrueClouds
             }
             GUILayout.EndHorizontal();
             
-            if (Event.current.type == EventType.mouseMove)
+            if (Event.current.type == EventType.MouseMove)
             {
                 Repaint();
             }
