@@ -47,12 +47,14 @@ public class FriendOrFoe : MonoBehaviour
 
     [HideInInspector]
     public bool isChasing = false;
+    private Collider myColllider;
 
     private void Awake()
     {
         myHomeLocation = gameObject.transform.position;
         animator = GetComponent<Animator>();
         chuckSounds = GetComponent<ChuckSounds>();
+        myColllider = GetComponent<Collider>();
     }
 
     // Start is called before the first frame update
@@ -136,6 +138,57 @@ public class FriendOrFoe : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log(gameObject.name + " Hit a " + other.gameObject.name + " " + other.gameObject.tag);
+        if (other.gameObject.name == "PlayerBody" && _canHit)
+        {
+            GameMaster.Instance.ReduceHealth(Damage);
+
+            // Change myStatus to the next level of Disposition
+            myStatus = GameMaster.Instance.ChangeDisposition(myStatus, true);
+            dmgWaitTimer = 0;
+            _canHit = false;
+        }
+        if (other.gameObject.name == "DetectorCone")
+        {
+            Debug.Log("I see you: " + other.gameObject.name);
+            switch (gTag)
+            {
+                case "Rock":
+                    sndtimer = Timer.Register(cycleTimer, RockSnd, isLooped: true);
+                    break;
+                case "Tree":
+                    sndtimer = Timer.Register(cycleTimer, TreeSnd, isLooped: true);
+                    break;
+                case "Bush":
+                    sndtimer = Timer.Register(cycleTimer, BushSnd, isLooped: true);
+                    break;
+                case "Animal":
+                    sndtimer = Timer.Register(cycleTimer, AnimalSnd, isLooped: true);
+                    break;
+                case "Mushroom":
+                    sndtimer = Timer.Register(cycleTimer, MushroomSnd, isLooped: true);
+                    break;
+                case "MonsterPlant":
+                    sndtimer = Timer.Register(cycleTimer, OtherSnd, isLooped: true);
+                    break;
+                default:
+                    Debug.Log("Item Tag Not Found - No Sound Played");
+                    break;
+            }
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.name == "DetectorCone")
+        {
+            Timer.Cancel(sndtimer);
+        }
+    }
+
+    /*
     private void OnCollisionEnter(Collision collision)
     {
         Debug.Log(gameObject.name + " Hit a " + collision.gameObject.name + " " + collision.gameObject.tag);
@@ -148,8 +201,9 @@ public class FriendOrFoe : MonoBehaviour
             dmgWaitTimer = 0;
             _canHit = false;
         } 
-        else if(collision.gameObject.name == "DetectorCone")
+        if(collision.gameObject.name == "DetectorCone")
         {
+            Debug.Log("I see you: " + collision.gameObject.name);
             switch (gTag)
             {
                 case "Rock":
@@ -184,6 +238,7 @@ public class FriendOrFoe : MonoBehaviour
             Timer.Cancel(sndtimer);
         }         
     }
+    */
 
     private void RockSnd()
     {

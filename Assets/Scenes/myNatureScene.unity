@@ -9812,6 +9812,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5557437340292978321, guid: f5b41ba4c79702547a89de7544b80656, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5569162240392239812, guid: f5b41ba4c79702547a89de7544b80656, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: -10.582406
@@ -17825,7 +17829,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &664632745
 Transform:
   m_ObjectHideFlags: 0
@@ -21970,7 +21974,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: f8ad2fabae8e338478888c1c5c1501a0, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: f8ad2fabae8e338478888c1c5c1501a0, type: 3}
       propertyPath: m_CastShadows
@@ -22007,11 +22011,11 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 784511639}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
+  m_Convex: 0
+  m_CookingOptions: -1
   m_Mesh: {fileID: 3613567641014311022, guid: f8ad2fabae8e338478888c1c5c1501a0, type: 3}
 --- !u!4 &784511641 stripped
 Transform:
@@ -28497,7 +28501,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1009278774}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 0.7883139, z: 1}
@@ -47640,7 +47644,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1733784376}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1.4944614, y: 2.6519985, z: 3.8997467}
@@ -50859,7 +50863,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1847989723
 Transform:
   m_ObjectHideFlags: 0
@@ -60170,7 +60174,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8433140790057281142, guid: 1db3b5d79407a9745a703c8180f393a1, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1880648413144528969, guid: 1db3b5d79407a9745a703c8180f393a1, type: 3}
