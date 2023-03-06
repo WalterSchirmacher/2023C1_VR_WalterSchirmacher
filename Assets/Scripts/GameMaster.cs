@@ -32,6 +32,7 @@ public class GameMaster : MonoBehaviour
 	public GameObject radar1UI, radar2UI;
 	private TextMeshProUGUI radar1, radar2;
 	public SightDetector sightDetector;
+	private List<FriendOrFoe> TheAnimals;
 
 	private Timer timer;
 	public GameObject thePlayer;
@@ -71,7 +72,10 @@ public class GameMaster : MonoBehaviour
 			Destroy(this);
         }
 		IsMoving = true;
-    }
+
+		TheAnimals = new List<FriendOrFoe>();
+
+	}
 
 	public void Start()
 	{
@@ -290,5 +294,21 @@ public class GameMaster : MonoBehaviour
 	public void TimedHealPlayer()
     {
 		AddHealth(healAmount);
+	}
+
+	public void AnimalListAdd(FriendOrFoe fof)
+    {
+		if(!TheAnimals.Contains(fof))
+        {
+			TheAnimals.Add(fof);
+        }
+    }
+
+	public void AnimalListRemove(FriendOrFoe fof)
+	{
+		if (TheAnimals.Contains(fof))
+		{
+			TheAnimals.Remove(fof);
+		}
 	}
 }

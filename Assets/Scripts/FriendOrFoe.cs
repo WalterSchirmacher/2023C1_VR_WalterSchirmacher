@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityTimer;
 
 public class FriendOrFoe : MonoBehaviour
 {
-
     public enum TransStatus { Default, Partial, TempHidden, TempVisible };
     [Tooltip("Friendly won't attack, Neutral is wary, Hostile will attack, ExtremeHatred attacks with no warning.")]
     public GameMaster.Disposition myStatus = GameMaster.Disposition.Neutral;
@@ -34,12 +34,16 @@ public class FriendOrFoe : MonoBehaviour
     public Collider detectedObject;
 
     private int myLayer, tempVisLayer, tempHiddenLayer;
+    [HideInInspector]
     public string gTag;
     private float randomLower = 3f;
     private float randomUpper = 10f;
     private bool stopRegularAudio = false;
     private bool stopMadAudio = false;
     private int fadeAudioTime = 10;
+    ChuckSounds chuckSounds;
+    private Timer sndtimer;
+    private float cycleTimer = 5f;
 
     [HideInInspector]
     public bool isChasing = false;
@@ -48,6 +52,7 @@ public class FriendOrFoe : MonoBehaviour
     {
         myHomeLocation = gameObject.transform.position;
         animator = GetComponent<Animator>();
+        chuckSounds = GetComponent<ChuckSounds>();
     }
 
     // Start is called before the first frame update
@@ -117,6 +122,8 @@ public class FriendOrFoe : MonoBehaviour
         {
             MakeTempVisible();
         }
+
+        GameMaster.Instance.AnimalListAdd(this);
     }
 
     private void Update()
@@ -140,9 +147,91 @@ public class FriendOrFoe : MonoBehaviour
             myStatus = GameMaster.Instance.ChangeDisposition(myStatus, true);
             dmgWaitTimer = 0;
             _canHit = false;
+        } 
+        else if(collision.gameObject.name == "DetectorCone")
+        {
+            switch (gTag)
+            {
+                case "Rock":
+                    sndtimer = Timer.Register(cycleTimer, RockSnd, isLooped: true);
+                    break;
+                case "Tree":
+                    sndtimer = Timer.Register(cycleTimer, TreeSnd, isLooped: true);
+                    break;
+                case "Bush":
+                    sndtimer = Timer.Register(cycleTimer, BushSnd, isLooped: true);
+                    break;
+                case "Animal":
+                    sndtimer = Timer.Register(cycleTimer, AnimalSnd, isLooped: true);
+                    break;
+                case "Mushroom":
+                    sndtimer = Timer.Register(cycleTimer, MushroomSnd, isLooped: true);
+                    break;
+                case "MonsterPlant":
+                    sndtimer = Timer.Register(cycleTimer, OtherSnd, isLooped: true);
+                    break;
+                default:
+                    Debug.Log("Item Tag Not Found - No Sound Played");
+                    break;
+            }
         }
     }
 
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.name == "DetectorCone")
+        {
+            Timer.Cancel(sndtimer);
+        }         
+    }
+
+    private void RockSnd()
+    {
+        if (chuckSounds)
+        {
+            chuckSounds.RockRadarSnd();
+        }
+    }
+
+    private void TreeSnd()
+    {
+        if (chuckSounds)
+        {
+            chuckSounds.TreeRadarSnd();
+        }
+    }
+
+    private void BushSnd()
+    {
+        if (chuckSounds)
+        {
+            chuckSounds.BushRadarSnd();
+        }
+    }
+
+    private void AnimalSnd()
+    {
+        if (chuckSounds)
+        {
+            chuckSounds.AnimalRadarSnd();
+        }
+    }
+
+    private void MushroomSnd()
+    {
+        if (chuckSounds)
+        {
+            chuckSounds.MushroomRadarSnd();
+        }
+    }
+
+    private void OtherSnd()
+    {
+        if (chuckSounds)
+        {
+            chuckSounds.OtherRadarSnd();
+        }
+    }
 
     [ContextMenu("Make Default")]
     public void MakeDefault()
