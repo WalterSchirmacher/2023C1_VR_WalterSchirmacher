@@ -34,6 +34,14 @@ public class GameMaster : MonoBehaviour
 	public SightDetector sightDetector;
 	private List<FriendOrFoe> TheAnimals;
 
+	public List<GameObject> whoIsVisible;
+	public int animals, rocks, plants, trees, bushes, other;
+	private Timer radarTimer;
+
+	[Tooltip("How often the radar refreshes.")]
+	[Range(1f,20f)]
+	public float cycleTime = 10f;
+
 	private Timer timer;
 	public GameObject thePlayer;
 	private bool moving = false;
@@ -84,14 +92,36 @@ public class GameMaster : MonoBehaviour
 		healthMeter.SetMaxHealth(maxHealth);
 		radar1 = radar1UI.GetComponent<TextMeshProUGUI>();
 		radar2 = radar2UI.GetComponent<TextMeshProUGUI>();
+		animals = rocks = plants = trees = bushes = other = 0;
+		radarTimer = Timer.Register(cycleTime, UpdateRadar, isLooped: true);
 	}
-    public void FixedUpdate()
+
+	private void UpdateRadar()
     {
+		PlayRadarSnds();
 		healthMeter.SetHealth(currentHealth);
-	//	Debug.Log("current health " + currentHealth);
 		radar1.SetText("Animals: " + sightDetector.animals + "<br>Trees: " + sightDetector.trees + "<br>Other: " + sightDetector.other);
 		radar2.SetText("Rocks: " + sightDetector.rocks + "<br>Bushes: " + sightDetector.bushes);
 	}
+
+	public void AddtoVisible(GameObject go)
+    {
+		whoIsVisible.Add(go);
+		AddRadar(go.tag);
+	}
+	public void NoLongerVisible(GameObject go)
+    {
+		whoIsVisible.Remove(go);
+		SubtractRadar(go.tag);
+    }
+
+	public void PlayRadarSnds()
+    {
+		foreach(GameObject go in whoIsVisible)
+        {
+			go.GetComponent<ChuckSounds>().PlayChuck();
+		}
+    }
 
 
     [ContextMenu("Reduce Health Test" )]
@@ -309,6 +339,62 @@ public class GameMaster : MonoBehaviour
 		if (TheAnimals.Contains(fof))
 		{
 			TheAnimals.Remove(fof);
+		}
+	}
+
+	void AddRadar(string gTag)
+	{
+		switch (gTag)
+		{
+			case "Rock":
+				rocks++;
+				break;
+			case "Tree":
+				trees++;
+				break;
+			case "Bush":
+				bushes++;
+				break;
+			case "Animal":
+				animals++;
+				break;
+			case "Mushroom":
+				other++;
+				break;
+			case "MonsterPlant":
+				other++;
+				break;
+			default:
+				Debug.Log("Item Tag Not Found");
+				break;
+		}
+	}
+
+	void SubtractRadar(string gTag)
+	{
+		switch (gTag)
+		{
+			case "Rock":
+				rocks--;
+				break;
+			case "Tree":
+				trees--;
+				break;
+			case "Bush":
+				bushes--;
+				break;
+			case "Animal":
+				animals--;
+				break;
+			case "Mushroom":
+				other--;
+				break;
+			case "MonsterPlant":
+				other--;
+				break;
+			default:
+				Debug.Log("Item Tag Not Found");
+				break;
 		}
 	}
 }

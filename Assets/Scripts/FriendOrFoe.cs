@@ -42,8 +42,8 @@ public class FriendOrFoe : MonoBehaviour
     private bool stopMadAudio = false;
     private int fadeAudioTime = 10;
     ChuckSounds chuckSounds;
-    private Timer sndtimer;
-    private float cycleTimer = 5f;
+   // private Timer sndtimer;
+  //  private float cycleTimer = 5f;
 
     [HideInInspector]
     public bool isChasing = false;
@@ -141,6 +141,12 @@ public class FriendOrFoe : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log(gameObject.name + " Hit a " + other.gameObject.name + " " + other.gameObject.tag);
+        if (other.gameObject.name == "DetectorCone")
+        {
+            Debug.Log("I see you: " + other.gameObject.name);
+            GameMaster.Instance.AddtoVisible(gameObject);
+        }
+
         if (other.gameObject.name == "PlayerBody" && _canHit)
         {
             GameMaster.Instance.ReduceHealth(Damage);
@@ -150,41 +156,13 @@ public class FriendOrFoe : MonoBehaviour
             dmgWaitTimer = 0;
             _canHit = false;
         }
-        if (other.gameObject.name == "DetectorCone")
-        {
-            Debug.Log("I see you: " + other.gameObject.name);
-            switch (gTag)
-            {
-                case "Rock":
-                    sndtimer = Timer.Register(cycleTimer, RockSnd, isLooped: true);
-                    break;
-                case "Tree":
-                    sndtimer = Timer.Register(cycleTimer, TreeSnd, isLooped: true);
-                    break;
-                case "Bush":
-                    sndtimer = Timer.Register(cycleTimer, BushSnd, isLooped: true);
-                    break;
-                case "Animal":
-                    sndtimer = Timer.Register(cycleTimer, AnimalSnd, isLooped: true);
-                    break;
-                case "Mushroom":
-                    sndtimer = Timer.Register(cycleTimer, MushroomSnd, isLooped: true);
-                    break;
-                case "MonsterPlant":
-                    sndtimer = Timer.Register(cycleTimer, OtherSnd, isLooped: true);
-                    break;
-                default:
-                    Debug.Log("Item Tag Not Found - No Sound Played");
-                    break;
-            }
-        }
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.name == "DetectorCone")
         {
-            Timer.Cancel(sndtimer);
+            GameMaster.Instance.NoLongerVisible(gameObject);
         }
     }
 
@@ -239,7 +217,7 @@ public class FriendOrFoe : MonoBehaviour
         }         
     }
     */
-
+    /*
     private void RockSnd()
     {
         if (chuckSounds)
@@ -287,6 +265,7 @@ public class FriendOrFoe : MonoBehaviour
             chuckSounds.OtherRadarSnd();
         }
     }
+    */
 
     [ContextMenu("Make Default")]
     public void MakeDefault()
