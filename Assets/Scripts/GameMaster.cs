@@ -40,7 +40,7 @@ public class GameMaster : MonoBehaviour
 
 	[Tooltip("How often the radar refreshes.")]
 	[Range(1f,20f)]
-	public float cycleTime = 10f;
+	public float cycleTime = 5f;
 
 	private Timer timer;
 	public GameObject thePlayer;
@@ -94,6 +94,7 @@ public class GameMaster : MonoBehaviour
 		radar2 = radar2UI.GetComponent<TextMeshProUGUI>();
 		animals = rocks = plants = trees = bushes = other = 0;
 		radarTimer = Timer.Register(cycleTime, UpdateRadar, isLooped: true);
+		UpdateRadar();
 	}
 
 	private void UpdateRadar()
@@ -104,22 +105,54 @@ public class GameMaster : MonoBehaviour
 		radar2.SetText("Rocks: " + sightDetector.rocks + "<br>Bushes: " + sightDetector.bushes);
 	}
 
-	public void AddtoVisible(GameObject go)
+	public void AddtoVisible(GameObject go, string goTag)
     {
 		whoIsVisible.Add(go);
-		AddRadar(go.tag);
+		AddRadar(goTag);
 	}
-	public void NoLongerVisible(GameObject go)
+	public void NoLongerVisible(GameObject go, string goTag)
     {
 		whoIsVisible.Remove(go);
-		SubtractRadar(go.tag);
+		SubtractRadar(goTag);
     }
 
 	public void PlayRadarSnds()
     {
+		Debug.Log("playing sounds");
 		foreach(GameObject go in whoIsVisible)
         {
-			go.GetComponent<ChuckSounds>().PlayChuck();
+			ChuckSounds ck = go.GetComponent<ChuckSounds>();
+			if (ck)
+			{	
+				switch (go.tag)
+				{
+					case "Animal":
+						ck.AnimalRadarSnd();
+						break;
+					case "Tree":
+						ck.TreeRadarSnd();
+						break;
+					case "Bush":
+						ck.BushRadarSnd();
+						break;
+					case "Rock":
+						ck.RockRadarSnd();
+						break;
+					case "Mushroom":
+						ck.MushroomRadarSnd();
+						break;
+					case "MonsterPlant":
+						ck.OtherRadarSnd();
+						break;
+					default:
+						Debug.Log("Item Tag Not Found");
+						break;
+				}
+			}
+			else
+			{
+				Debug.Log("No Chucker found!");
+			}
 		}
     }
 

@@ -14,7 +14,7 @@ public class SightDetector : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        AddRadar(other.gameObject.tag);
+    //   AddRadar(other.gameObject.tag);
     }
     private void OnTriggerStay(Collider other)
     {
@@ -25,7 +25,7 @@ public class SightDetector : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
       //  string gTag = other.gameObject.tag;
-          SubtractRadar(other.gameObject.tag);
+        //  SubtractRadar(other.gameObject.tag);
     }
 
     void AddRadar(string gTag)

@@ -41,9 +41,6 @@ public class FriendOrFoe : MonoBehaviour
     private bool stopRegularAudio = false;
     private bool stopMadAudio = false;
     private int fadeAudioTime = 10;
-    ChuckSounds chuckSounds;
-   // private Timer sndtimer;
-  //  private float cycleTimer = 5f;
 
     [HideInInspector]
     public bool isChasing = false;
@@ -53,14 +50,13 @@ public class FriendOrFoe : MonoBehaviour
     {
         myHomeLocation = gameObject.transform.position;
         animator = GetComponent<Animator>();
-        chuckSounds = GetComponent<ChuckSounds>();
         myColllider = GetComponent<Collider>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("My status is " + myStatus);
+        //Debug.Log("My status is " + myStatus);
         Damage = GameMaster.Instance.GetDamageAmount(myStatus);
 
         if (!audioRegular || !audioMad)
@@ -108,22 +104,7 @@ public class FriendOrFoe : MonoBehaviour
         tempHiddenLayer = LayerMask.NameToLayer("TempHidden");
         myLayer = LayerMask.NameToLayer(gLayerName);
 
-        if (defaultTransState == TransStatus.Default)
-        {
-            MakeDefault();
-        }
-        else if (defaultTransState == TransStatus.Partial)
-        {
-            MakePartlyTransparent();
-        }
-        else if (defaultTransState == TransStatus.TempHidden)
-        {
-            MakeTempHidden();
-        } 
-        else if (defaultTransState == TransStatus.TempVisible)
-        {
-            MakeTempVisible();
-        }
+        MakeDefaultSetInEditor();
 
         GameMaster.Instance.AnimalListAdd(this);
     }
@@ -140,11 +121,11 @@ public class FriendOrFoe : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(gameObject.name + " Hit a " + other.gameObject.name + " " + other.gameObject.tag);
+      //  Debug.Log(gameObject.name + " Hit a " + other.gameObject.name + " " + other.gameObject.tag);
         if (other.gameObject.name == "DetectorCone")
         {
-            Debug.Log("I see you: " + other.gameObject.name);
-            GameMaster.Instance.AddtoVisible(gameObject);
+          //  Debug.Log(gTag + " I see you: " + other.gameObject.name);
+            GameMaster.Instance.AddtoVisible(gameObject, gTag);
         }
 
         if (other.gameObject.name == "PlayerBody" && _canHit)
@@ -162,110 +143,9 @@ public class FriendOrFoe : MonoBehaviour
     {
         if (other.gameObject.name == "DetectorCone")
         {
-            GameMaster.Instance.NoLongerVisible(gameObject);
+            GameMaster.Instance.NoLongerVisible(gameObject, gTag);
         }
     }
-
-    /*
-    private void OnCollisionEnter(Collision collision)
-    {
-        Debug.Log(gameObject.name + " Hit a " + collision.gameObject.name + " " + collision.gameObject.tag);
-        if (collision.gameObject.name == "PlayerBody" && _canHit)
-        {
-            GameMaster.Instance.ReduceHealth(Damage);
-
-            // Change myStatus to the next level of Disposition
-            myStatus = GameMaster.Instance.ChangeDisposition(myStatus, true);
-            dmgWaitTimer = 0;
-            _canHit = false;
-        } 
-        if(collision.gameObject.name == "DetectorCone")
-        {
-            Debug.Log("I see you: " + collision.gameObject.name);
-            switch (gTag)
-            {
-                case "Rock":
-                    sndtimer = Timer.Register(cycleTimer, RockSnd, isLooped: true);
-                    break;
-                case "Tree":
-                    sndtimer = Timer.Register(cycleTimer, TreeSnd, isLooped: true);
-                    break;
-                case "Bush":
-                    sndtimer = Timer.Register(cycleTimer, BushSnd, isLooped: true);
-                    break;
-                case "Animal":
-                    sndtimer = Timer.Register(cycleTimer, AnimalSnd, isLooped: true);
-                    break;
-                case "Mushroom":
-                    sndtimer = Timer.Register(cycleTimer, MushroomSnd, isLooped: true);
-                    break;
-                case "MonsterPlant":
-                    sndtimer = Timer.Register(cycleTimer, OtherSnd, isLooped: true);
-                    break;
-                default:
-                    Debug.Log("Item Tag Not Found - No Sound Played");
-                    break;
-            }
-        }
-    }
-
-    private void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject.name == "DetectorCone")
-        {
-            Timer.Cancel(sndtimer);
-        }         
-    }
-    */
-    /*
-    private void RockSnd()
-    {
-        if (chuckSounds)
-        {
-            chuckSounds.RockRadarSnd();
-        }
-    }
-
-    private void TreeSnd()
-    {
-        if (chuckSounds)
-        {
-            chuckSounds.TreeRadarSnd();
-        }
-    }
-
-    private void BushSnd()
-    {
-        if (chuckSounds)
-        {
-            chuckSounds.BushRadarSnd();
-        }
-    }
-
-    private void AnimalSnd()
-    {
-        if (chuckSounds)
-        {
-            chuckSounds.AnimalRadarSnd();
-        }
-    }
-
-    private void MushroomSnd()
-    {
-        if (chuckSounds)
-        {
-            chuckSounds.MushroomRadarSnd();
-        }
-    }
-
-    private void OtherSnd()
-    {
-        if (chuckSounds)
-        {
-            chuckSounds.OtherRadarSnd();
-        }
-    }
-    */
 
     [ContextMenu("Make Default")]
     public void MakeDefault()
@@ -286,6 +166,27 @@ public class FriendOrFoe : MonoBehaviour
         if (lightObject)
         {
             lightObject.SetActive(false);
+        }
+    }
+
+    public void MakeDefaultSetInEditor()
+    {
+        //     Debug.Log("Set to Default in Editor");
+        if (defaultTransState == TransStatus.Default)
+        {
+            MakeDefault();
+        }
+        else if (defaultTransState == TransStatus.Partial)
+        {
+            MakePartlyTransparent();
+        }
+        else if (defaultTransState == TransStatus.TempHidden)
+        {
+            MakeTempHidden();
+        }
+        else if (defaultTransState == TransStatus.TempVisible)
+        {
+            MakeTempVisible();
         }
     }
 
@@ -388,7 +289,7 @@ public class FriendOrFoe : MonoBehaviour
     {
         stopRegularAudio = true;
         stopMadAudio = true;
-        MakeDefault();
+        MakeDefaultSetInEditor();
     }
 
     public void PlayerFound()

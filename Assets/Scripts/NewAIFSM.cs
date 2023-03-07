@@ -62,13 +62,6 @@ public class NewAIFSM : MonoBehaviour
             }
    
         }
-    
-   /*     foreach (Vector3 vec in patrolPointList)
-        {
-            Vector3 v = vec;
-            Debug.Log(v.ToString());
-        }
-   */
 
         _idleState = Fsm_IdleState;
         _doPatrolState = Fsm_DoPatrol;
