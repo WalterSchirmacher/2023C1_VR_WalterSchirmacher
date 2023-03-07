@@ -142,7 +142,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1926331299901854491
 Transform:
   m_ObjectHideFlags: 0
@@ -369,8 +369,10 @@ MonoBehaviour:
   stalkingSpeed: 1.5
   runningSpeed: 3.5
   waitingTime: 30
-  goHome: 0
   preferStalking: 1
+  doPatrol: 1
+  randomPatrol: 1
+  patrolPoints: {fileID: 0}
 --- !u!1 &7564207778218601152
 GameObject:
   m_ObjectHideFlags: 0
@@ -484,7 +486,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1281478175009745093
 Transform:
   m_ObjectHideFlags: 0
@@ -637,8 +639,6 @@ MonoBehaviour:
   ai: {fileID: 7516880118937416161}
   audioRegular: {fileID: 0}
   audioMad: {fileID: 0}
-  volRegular: 0.5
-  volMad: 0.75
   animationIdle: 
   animationStalk: 
   animationChase: 
@@ -649,6 +649,7 @@ MonoBehaviour:
   myHomeLocation: {x: 0, y: 0, z: 0}
   defaultTransState: 0
   detectedObject: {fileID: 0}
+  gTag: 
   isChasing: 0
 --- !u!114 &6675934720636702121
 MonoBehaviour:
@@ -664,6 +665,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   distance: 3
   angle: 60
+  distanceDivisorFirst: 3
+  firstSighting: 1
   objectsLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -671,3 +674,4 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   detectedObject: {fileID: 0}
+  distanceFirst: 0
