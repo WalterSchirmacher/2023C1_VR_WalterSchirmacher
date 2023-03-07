@@ -64,7 +64,7 @@ public class ChuckSounds : MonoBehaviour
                 1 => Osc.gain;
                 [0,2,4,6,8,10,12,14,16,18,20,22] @=> int major[];
                 12  => int num;
-                34 => int offset;
+                60 => int offset;
                 int position;
                 0.03::second => dur beat;
                 0 => position;

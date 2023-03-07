@@ -15,7 +15,7 @@ public class GameMaster : MonoBehaviour
 	public enum HealthStatus { Healthy, OK, Tired, Bad, Critical };
 	public enum Disposition { Friendly, Neutral, Hostile, ExtremeHatred };
 	public enum HitTypes { Max, Regular, Small };
-	private float currentHealth = 100f;
+	public float currentHealth = 100f;
 	private readonly float maxHealth = 100f;
 	private readonly float minHealth = 10f;
 	[Range(1f,10f)]
@@ -35,6 +35,13 @@ public class GameMaster : MonoBehaviour
 	private List<FriendOrFoe> TheAnimals;
 
 	public List<GameObject> whoIsVisible;
+	public List<GameObject> aniIsVisible;
+	public List<GameObject> rockIsVisible;
+	public List<GameObject> plantIsVisible;
+	public List<GameObject> treeIsVisible;
+	public List<GameObject> bushIsVisible;
+	public List<GameObject> mushIsVisible;
+	public List<GameObject> otherIsVisible;
 	public int animals, rocks, plants, trees, bushes, other;
 	private Timer radarTimer;
 
@@ -56,13 +63,15 @@ public class GameMaster : MonoBehaviour
 		{
 				if (value == true)
 				{
-					timer = Timer.Register(healWaitTime, TimedHealPlayer, isLooped: true);
-					Debug.Log("heal");
+					Timer.Cancel(timer);
+					Debug.Log("no healing");
+				
 				} 
 				else
 				{
-						Timer.Cancel(timer);
-					Debug.Log("no healing");
+					timer = Timer.Register(healWaitTime, TimedHealPlayer, isLooped: true);
+					Debug.Log("heal");
+				
 				}
 		
 			moving = value;
@@ -79,7 +88,7 @@ public class GameMaster : MonoBehaviour
         {
 			Destroy(this);
         }
-		IsMoving = true;
+		
 
 		TheAnimals = new List<FriendOrFoe>();
 
@@ -94,6 +103,7 @@ public class GameMaster : MonoBehaviour
 		radar2 = radar2UI.GetComponent<TextMeshProUGUI>();
 		animals = rocks = plants = trees = bushes = other = 0;
 		radarTimer = Timer.Register(cycleTime, UpdateRadar, isLooped: true);
+		IsMoving = true;
 		UpdateRadar();
 	}
 
@@ -101,63 +111,123 @@ public class GameMaster : MonoBehaviour
     {
 		PlayRadarSnds();
 		healthMeter.SetHealth(currentHealth);
-		radar1.SetText("Animals: " + sightDetector.animals + "<br>Trees: " + sightDetector.trees + "<br>Other: " + sightDetector.other);
-		radar2.SetText("Rocks: " + sightDetector.rocks + "<br>Bushes: " + sightDetector.bushes);
+		radar1.SetText("Animals: " + animals + "<br>Trees: " + trees + "<br>Other: " + other);
+		radar2.SetText("Rocks: " + rocks + "<br>Bushes: " + bushes);
 	}
 
 	public void AddtoVisible(GameObject go, string goTag)
     {
-		whoIsVisible.Add(go);
-		AddRadar(goTag);
+			switch (goTag)
+			{
+				case "Animal":
+					if (!aniIsVisible.Contains(go))
+					{
+						aniIsVisible.Add(go);
+						AddRadar(goTag);
+					}
+					break;
+				case "Tree":
+					if (!treeIsVisible.Contains(go))
+					{
+						treeIsVisible.Add(go);
+						AddRadar(goTag);
+					}
+					break;
+				case "Bush":
+						if (!bushIsVisible.Contains(go))
+						{
+							bushIsVisible.Add(go);
+							AddRadar(goTag);
+						}
+					break;
+				case "Rock":
+					if (!rockIsVisible.Contains(go))
+					{
+						rockIsVisible.Add(go);
+						AddRadar(goTag);
+					}
+					break;
+				case "Mushroom":
+					if (!mushIsVisible.Contains(go))
+					{
+						mushIsVisible.Add(go);
+						AddRadar(goTag);
+					}
+					break;
+				case "MonsterPlant":
+					if (!otherIsVisible.Contains(go))
+					{
+						otherIsVisible.Add(go);
+						AddRadar(goTag);
+					}
+					break;
+				default:
+					Debug.Log("Item Tag Not Found");
+					break;
+			}
+		
+		
 	}
 	public void NoLongerVisible(GameObject go, string goTag)
     {
-		whoIsVisible.Remove(go);
-		SubtractRadar(goTag);
+
+		switch (goTag)
+		{
+			case "Animal":
+				if (aniIsVisible.Contains(go))
+				{
+					aniIsVisible.Remove(go);
+					SubtractRadar(goTag);
+				}
+				break;
+			case "Tree":
+				if (treeIsVisible.Contains(go))
+				{
+					treeIsVisible.Remove(go);
+					SubtractRadar(goTag);
+				}
+				break;
+			case "Bush":
+				if (bushIsVisible.Contains(go))
+				{
+					bushIsVisible.Remove(go);
+					SubtractRadar(goTag);
+				}
+				break;
+			case "Rock":
+				if (rockIsVisible.Contains(go))
+				{
+					rockIsVisible.Remove(go);
+					SubtractRadar(goTag);
+				}
+				break;
+			case "Mushroom":
+				if (mushIsVisible.Contains(go))
+				{
+					mushIsVisible.Remove(go);
+					SubtractRadar(goTag);
+				}
+				break;
+			case "MonsterPlant":
+				if (otherIsVisible.Contains(go))
+				{
+					otherIsVisible.Remove(go);
+					SubtractRadar(goTag);
+				}
+				break;
+			default:
+				Debug.Log("Item Tag Not Found");
+				break;
+		}
     }
 
 	public void PlayRadarSnds()
     {
 		Debug.Log("playing sounds");
-		foreach(GameObject go in whoIsVisible)
-        {
-			ChuckSounds ck = go.GetComponent<ChuckSounds>();
-			if (ck)
-			{	
-				switch (go.tag)
-				{
-					case "Animal":
-						ck.AnimalRadarSnd();
-						break;
-					case "Tree":
-						ck.TreeRadarSnd();
-						break;
-					case "Bush":
-						ck.BushRadarSnd();
-						break;
-					case "Rock":
-						ck.RockRadarSnd();
-						break;
-					case "Mushroom":
-						ck.MushroomRadarSnd();
-						break;
-					case "MonsterPlant":
-						ck.OtherRadarSnd();
-						break;
-					default:
-						Debug.Log("Item Tag Not Found");
-						break;
-				}
-			}
-			else
-			{
-				Debug.Log("No Chucker found!");
-			}
-		}
-    }
+		StartCoroutine(PLayLocalChucker());
+	}
 
-
-    [ContextMenu("Reduce Health Test" )]
+	[ContextMenu("Reduce Health Test" )]
 	public void TestReduceHelath()
     {
 		ReduceHealth(10);
@@ -428,6 +498,88 @@ public class GameMaster : MonoBehaviour
 			default:
 				Debug.Log("Item Tag Not Found");
 				break;
+		}
+	}
+
+	IEnumerator PLayLocalChucker()
+	{
+		float wait = 0.5f;
+
+		if (aniIsVisible.Count > 0)
+		{
+			foreach (GameObject go in aniIsVisible)
+			{
+				ChuckSounds ck = go.GetComponent<ChuckSounds>();
+				if (ck)
+				{
+					ck.AnimalRadarSnd();
+				}
+			}
+			yield return new WaitForSeconds(wait);
+		}
+
+		if (treeIsVisible.Count > 0)
+		{
+			foreach (GameObject go in treeIsVisible)
+			{
+				ChuckSounds ck = go.GetComponent<ChuckSounds>();
+				if (ck)
+				{
+					ck.TreeRadarSnd();
+				}
+			}
+			yield return new WaitForSeconds(wait);
+		}
+
+		if (bushIsVisible.Count > 0)
+		{
+			foreach (GameObject go in bushIsVisible)
+			{
+				ChuckSounds ck = go.GetComponent<ChuckSounds>();
+				if (ck)
+				{
+					ck.BushRadarSnd();
+				}
+			}
+			yield return new WaitForSeconds(wait);
+		}
+
+		if (rockIsVisible.Count > 0)
+		{
+			foreach (GameObject go in rockIsVisible)
+			{
+				ChuckSounds ck = go.GetComponent<ChuckSounds>();
+				if (ck)
+				{
+					ck.RockRadarSnd();
+				}
+			}
+			yield return new WaitForSeconds(wait);
+		}
+
+		if (mushIsVisible.Count > 0)
+		{
+			foreach (GameObject go in mushIsVisible)
+			{
+				ChuckSounds ck = go.GetComponent<ChuckSounds>();
+				if (ck)
+				{
+					ck.MushroomRadarSnd();
+				}
+			}
+			yield return new WaitForSeconds(wait);
+		}
+
+		if (mushIsVisible.Count > 0)
+		{
+			foreach (GameObject go in otherIsVisible)
+			{
+				ChuckSounds ck = go.GetComponent<ChuckSounds>();
+				if (ck)
+				{
+					ck.OtherRadarSnd();
+				}
+			}
 		}
 	}
 }

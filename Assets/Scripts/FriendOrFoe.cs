@@ -12,7 +12,7 @@ public class FriendOrFoe : MonoBehaviour
     public GameObject parentObject, visibleObject, transparentObject, lightObject;
     public NewAIFSM ai;
     public AudioSource audioRegular, audioMad;
-    public float volRegular = 0.5f, volMad = 0.75f;
+  //  public float volRegular = 0.5f, volMad = 0.75f;
     public string animationIdle, animationStalk, animationChase;
     public List<string> animationAttack;
 
@@ -59,17 +59,19 @@ public class FriendOrFoe : MonoBehaviour
         //Debug.Log("My status is " + myStatus);
         Damage = GameMaster.Instance.GetDamageAmount(myStatus);
 
-        if (!audioRegular || !audioMad)
+        if(!parentObject)
         {
-            Debug.Log("Invalid Audio Source!");
-            Debug.Log("AudioSource: " + audioRegular);
-            Debug.Log("Short Roar: " + audioMad);
+            parentObject = this.gameObject;
         }
-        else
+        if (!visibleObject)
         {
-            audioRegular.volume = volRegular;
-            audioMad.volume = volMad;
+            visibleObject = this.gameObject;
         }
+        if (!transparentObject)
+        {
+            transparentObject = this.gameObject;
+        }
+
 
         gTag = gameObject.tag;
         string gLayerName;
@@ -116,15 +118,49 @@ public class FriendOrFoe : MonoBehaviour
         if(dmgWaitTimer > damangeWaitTime && !_canHit)
         {
             _canHit = true;
+            if (gTag != "Animal")
+            {
+                MakeDefaultSetInEditor();
+            }
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.name == "DetectorCone")
+        {
+            Debug.Log(gameObject.name + " sees you");
+            GameMaster.Instance.AddtoVisible(gameObject, gTag);
+        }
+
+        if (collision.gameObject.name == "PlayerBody" && _canHit)
+        {
+            Debug.Log(gameObject.name + " has hit player");
+            GameMaster.Instance.ReduceHealth(Damage);
+            myStatus = GameMaster.Instance.ChangeDisposition(myStatus, true);
+            dmgWaitTimer = 0;
+            _canHit = false;
+            if(gTag != "Animal")
+            {
+                MakeTempVisible();
+            }
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.name == "DetectorCone")
+        {
+            GameMaster.Instance.NoLongerVisible(gameObject, gTag);
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-      //  Debug.Log(gameObject.name + " Hit a " + other.gameObject.name + " " + other.gameObject.tag);
+        //  Debug.Log(gameObject.name + " Hit a " + other.gameObject.name + " " + other.gameObject.tag);
         if (other.gameObject.name == "DetectorCone")
         {
-          //  Debug.Log(gTag + " I see you: " + other.gameObject.name);
+            //  Debug.Log(gTag + " I see you: " + other.gameObject.name);
             GameMaster.Instance.AddtoVisible(gameObject, gTag);
         }
 
