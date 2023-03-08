@@ -21,6 +21,7 @@ public class GameMaster : MonoBehaviour
 	[Range(1f,10f)]
 	public float healAmount = 1f;
 	public float healWaitTime = 3f;
+	public float redOutlineWaitTime = 2f;
 	public float maxHit = 10f;
 	public float regularHit = 5f;
 	public float smallHit = 1f;
@@ -29,7 +30,7 @@ public class GameMaster : MonoBehaviour
 	public float minSpeed = 0.5f;
 	public float startStationaryTime = 0f;
 	public MeterScript healthMeter;
-	public GameObject radar1UI, radar2UI;
+	public GameObject radar1UI, radar2UI, radarOutline;
 	private TextMeshProUGUI radar1, radar2;
 	public SightDetector sightDetector;
 	private List<FriendOrFoe> TheAnimals;
@@ -44,6 +45,9 @@ public class GameMaster : MonoBehaviour
 	public List<GameObject> otherIsVisible;
 	public int animals, rocks, plants, trees, bushes, other;
 	private Timer radarTimer;
+	public GameObject chuckerSnd, mainPlayer;
+	ChuckSounds ckSnds;
+	private bool radarRed = false;
 
 	[Tooltip("How often the radar refreshes.")]
 	[Range(1f,20f)]
@@ -64,13 +68,13 @@ public class GameMaster : MonoBehaviour
 				if (value == true)
 				{
 					Timer.Cancel(timer);
-					Debug.Log("no healing");
+				//	Debug.Log("no healing");
 				
 				} 
 				else
 				{
 					timer = Timer.Register(healWaitTime, TimedHealPlayer, isLooped: true);
-					Debug.Log("heal");
+				//	Debug.Log("heal");
 				
 				}
 		
@@ -89,22 +93,51 @@ public class GameMaster : MonoBehaviour
 			Destroy(this);
         }
 		
-
 		TheAnimals = new List<FriendOrFoe>();
+		aniIsVisible = new List<GameObject>();
+		rockIsVisible = new List<GameObject>();
+		plantIsVisible = new List<GameObject>();
+		treeIsVisible = new List<GameObject>();
+		bushIsVisible = new List<GameObject>();
+		mushIsVisible = new List<GameObject>();
+		otherIsVisible = new List<GameObject>();
 
 	}
 
 	public void Start()
 	{
 		currentSpeed = abContinousMovePB.moveSpeed;
-		Debug.Log("Current Speed is " + currentSpeed);
+		//Debug.Log("Current Speed is " + currentSpeed);
 		healthMeter.SetMaxHealth(maxHealth);
 		radar1 = radar1UI.GetComponent<TextMeshProUGUI>();
 		radar2 = radar2UI.GetComponent<TextMeshProUGUI>();
 		animals = rocks = plants = trees = bushes = other = 0;
-		radarTimer = Timer.Register(cycleTime, UpdateRadar, isLooped: true);
+
+		radarTimer = Timer.Register(
+			duration: cycleTime, 
+			UpdateRadar, 
+			isLooped: true,
+			onUpdate: sec =>
+			{
+			//	Debug.Log("sec is " + sec);
+				if(sec <= redOutlineWaitTime && !radarRed)
+                {
+					radarOutline.SetActive(true);
+					radarRed = true;
+					//Debug.Log("showing red");
+				} else if (sec > redOutlineWaitTime && radarRed) {
+					radarOutline.SetActive(false);
+					radarRed = false;
+				//	Debug.Log("hiding red");
+				}
+			}
+		);
+
 		IsMoving = true;
-		UpdateRadar();
+		healthMeter.SetHealth(currentHealth);
+		radar1.SetText("Animals: " + animals + "<br>Trees: " + trees + "<br>Other: " + other);
+		radar2.SetText("Rocks: " + rocks + "<br>Bushes: " + bushes);
+		ckSnds = chuckerSnd.GetComponent<ChuckSounds>();
 	}
 
 	private void UpdateRadar()
@@ -113,6 +146,11 @@ public class GameMaster : MonoBehaviour
 		healthMeter.SetHealth(currentHealth);
 		radar1.SetText("Animals: " + animals + "<br>Trees: " + trees + "<br>Other: " + other);
 		radar2.SetText("Rocks: " + rocks + "<br>Bushes: " + bushes);
+	}
+
+	private void HideRedLine()
+    {
+		radarOutline.SetActive(false);
 	}
 
 	public void AddtoVisible(GameObject go, string goTag)
@@ -223,7 +261,15 @@ public class GameMaster : MonoBehaviour
 
 	public void PlayRadarSnds()
     {
-		Debug.Log("playing sounds");
+	//	Debug.Log("playing sounds");
+
+		if (bushIsVisible.Count > 0)
+		{
+			chuckerSnd.transform.position = new Vector3(bushIsVisible[0].transform.position.x, bushIsVisible[0].transform.position.y, bushIsVisible[0].transform.position.z);
+			//chuckerSnd.transform.LookAt(mainPlayer.transform);
+			ckSnds.BushRadarSnd();
+		}
+
 		StartCoroutine(PLayLocalChucker());
 	}
 
@@ -270,8 +316,8 @@ public class GameMaster : MonoBehaviour
 			currentSpeed = minSpeed;
 		}
 		abContinousMovePB.moveSpeed = currentSpeed;
-		Debug.Log("current Speed is " + currentSpeed);
-		Debug.Log("System Move Speed is " + abContinousMovePB.moveSpeed);
+		//Debug.Log("current Speed is " + currentSpeed);
+		//Debug.Log("System Move Speed is " + abContinousMovePB.moveSpeed);
 
 	}
 
@@ -318,7 +364,7 @@ public class GameMaster : MonoBehaviour
 			Debug.Log("Could not Find Health Status");
 		}
 
-		Debug.Log("HealthStatus is " + thestatus.ToString());
+	//	Debug.Log("HealthStatus is " + thestatus.ToString());
 
 		return thestatus;
 		
@@ -505,6 +551,8 @@ public class GameMaster : MonoBehaviour
 	{
 		float wait = 0.5f;
 
+		yield return new WaitForSeconds(wait);
+
 		if (aniIsVisible.Count > 0)
 		{
 			foreach (GameObject go in aniIsVisible)
@@ -530,20 +578,7 @@ public class GameMaster : MonoBehaviour
 			}
 			yield return new WaitForSeconds(wait);
 		}
-		/*
-		if (bushIsVisible.Count > 0)
-		{
-			foreach (GameObject go in bushIsVisible)
-			{
-				ChuckSounds ck = go.GetComponent<ChuckSounds>();
-				if (ck)
-				{
-					ck.BushRadarSnd();
-				}
-			}
-			yield return new WaitForSeconds(wait);
-		}
-*/
+
 		if (rockIsVisible.Count > 0)
 		{
 			foreach (GameObject go in rockIsVisible)

@@ -129,13 +129,13 @@ public class FriendOrFoe : MonoBehaviour
     {
         if(collision.gameObject.name == "DetectorCone")
         {
-            Debug.Log(gameObject.name + " sees you");
+        //    Debug.Log(gameObject.name + " sees you");
             GameMaster.Instance.AddtoVisible(gameObject, gTag);
         }
 
         if (collision.gameObject.name == "PlayerBody" && _canHit)
         {
-            Debug.Log(gameObject.name + " has hit player");
+        //    Debug.Log(gameObject.name + " has hit player");
             GameMaster.Instance.ReduceHealth(Damage);
             myStatus = GameMaster.Instance.ChangeDisposition(myStatus, true);
             dmgWaitTimer = 0;

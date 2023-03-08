@@ -8,6 +8,11 @@ public class Exit : MonoBehaviour
     public AudioSource audioSource;
     // Start is called before the first frame update
 
+    private void Awake()
+    {
+        tmp.SetActive(false);
+    }
+
     // Update is called once per frame
     private void OnTriggerEnter(Collider other)
     {

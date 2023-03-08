@@ -38,7 +38,7 @@ public class Bushes : MonoBehaviour
     {
         if (collision.gameObject.name == "DetectorCone")
         {
-            Debug.Log("Bush is seeing player");
+        //    Debug.Log("Bush is seeing player");
             GameMaster.Instance.AddtoVisible(gameObject, gTag);
         }
         if (collision.gameObject.name == "PlayerBody" && _canHit)

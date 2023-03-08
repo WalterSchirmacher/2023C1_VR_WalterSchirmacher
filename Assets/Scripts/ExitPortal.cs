@@ -7,8 +7,12 @@ public class ExitPortal : MonoBehaviour
 
     public AudioSource audioSrc;
     public GameObject goFX;
+    public GameObject arch;
 
-
+    private void Awake()
+    {
+        arch.SetActive(false);
+    }
     private void OnTriggerEnter(Collider other)
     {
         StartPortal();
@@ -17,6 +21,7 @@ public class ExitPortal : MonoBehaviour
     [ContextMenu("StartPortal")]
     public void StartPortal()
     {
+        arch.SetActive(true);
         audioSrc.Play();
         goFX.SetActive(true);
     }

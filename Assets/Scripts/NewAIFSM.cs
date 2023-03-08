@@ -129,7 +129,7 @@ public class NewAIFSM : MonoBehaviour
             //On Enter
             agent.isStopped = false;
 
-            Debug.Log("Starting for " + patrolIndex + " and I am " + friendOrFoe.gameObject.name);
+      //      Debug.Log("Starting for " + patrolIndex + " and I am " + friendOrFoe.gameObject.name);
 
             agent.SetDestination(GetPatrolDestination());
             friendOrFoe.PlayNewAnimation(friendOrFoe.animationChase);
@@ -153,18 +153,6 @@ public class NewAIFSM : MonoBehaviour
                     {
                         if (!agent.hasPath || agent.velocity.sqrMagnitude == 0f)
                         {
-                            // Done
-                           // Debug.Log("Executes 2 times");
-                         /*   if (patrolIndex >= patrolPointList.Count-1)
-                            { // if it's a last point
-                                patrolIndex = 0;
-                            }
-                            else
-                            {
-                                patrolIndex++;
-                            } 
-                           agent.SetDestination(patrolPointList[patrolIndex]);
-                         */
                             agent.SetDestination(GetPatrolDestination());
                         }
                     }
@@ -206,7 +194,7 @@ public class NewAIFSM : MonoBehaviour
             //On Update
             if (sightSensor.detectedObject == null)
             {
-                Debug.Log("Lost sight of player... Waiting.");
+            //    Debug.Log("Lost sight of player... Waiting.");
                 isWaiting = true;
                 //  currentState = AIState.Idle;
                 cState = _idleState;
@@ -253,7 +241,7 @@ public class NewAIFSM : MonoBehaviour
             //On Update
             if (sightSensor.detectedObject == null)
             {
-                Debug.Log("Lost sight of player... Waiting.");
+            //    Debug.Log("Lost sight of player... Waiting.");
                 isWaiting = true;
                 // currentState = AIState.Idle;
                 cState = _idleState;
@@ -265,9 +253,9 @@ public class NewAIFSM : MonoBehaviour
             transform.LookAt(sightSensor.detectedObject.transform.position);
 
             int index = UnityEngine.Random.Range(0, friendOrFoe.animationAttack.Count);
-            Debug.Log("count " + friendOrFoe.animationAttack.Count);
-            Debug.Log("index " + index);
-            Debug.Log("attack with " + friendOrFoe.animationAttack[index]);
+         //   Debug.Log("count " + friendOrFoe.animationAttack.Count);
+        //    Debug.Log("index " + index);
+        //    Debug.Log("attack with " + friendOrFoe.animationAttack[index]);
 
             friendOrFoe.PlayAttackAnimation(friendOrFoe.animationAttack[index]);
 

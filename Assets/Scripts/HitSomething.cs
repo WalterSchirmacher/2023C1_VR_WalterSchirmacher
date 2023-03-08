@@ -51,7 +51,7 @@ public class HitSomething : MonoBehaviour
     {
         if (collision.gameObject.name != "Terrain" && collision.gameObject.tag != "DetectorSphere")
         {
-            Debug.Log("Hit a " + collision.gameObject.name + " " + collision.gameObject.tag);
+          //  Debug.Log("Hit a " + collision.gameObject.name + " " + collision.gameObject.tag);
             StartCoroutine(PlayAudioSequentially());
         }
         
