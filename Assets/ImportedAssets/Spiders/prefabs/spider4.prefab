@@ -700,6 +700,7 @@ Transform:
   - {fileID: 415652}
   - {fileID: 423208}
   - {fileID: 464024}
+  - {fileID: 4218980487548348560}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2180,3 +2181,147 @@ Transform:
   m_Father: {fileID: 494906}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2088058651588117790
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4218980487548348560}
+  - component: {fileID: 3790080330485632450}
+  m_Layer: 0
+  m_Name: SphereTrans
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &4218980487548348560
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2088058651588117790}
+  m_LocalRotation: {x: 0.00000010677174, y: 0.7071069, z: -0.70710665, w: 1.616683e-12}
+  m_LocalPosition: {x: -0.0007278323, y: 0.044447184, z: -0.19751434}
+  m_LocalScale: {x: 0.8530197, y: 0.8530198, z: 0.8530198}
+  m_Children: []
+  m_Father: {fileID: 494906}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!137 &3790080330485632450
+SkinnedMeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2088058651588117790}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 3
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 662212ca921593f43a3e84d967beecc9, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  serializedVersion: 2
+  m_Quality: 0
+  m_UpdateWhenOffscreen: 0
+  m_SkinnedMotionVectors: 1
+  m_Mesh: {fileID: 4300000, guid: 7b12ff0838c1bfc46970414ffe81e813, type: 3}
+  m_Bones:
+  - {fileID: 461760}
+  - {fileID: 481614}
+  - {fileID: 490826}
+  - {fileID: 420346}
+  - {fileID: 474842}
+  - {fileID: 459628}
+  - {fileID: 469582}
+  - {fileID: 472246}
+  - {fileID: 476090}
+  - {fileID: 499796}
+  - {fileID: 412524}
+  - {fileID: 462584}
+  - {fileID: 409496}
+  - {fileID: 459380}
+  - {fileID: 451364}
+  - {fileID: 432180}
+  - {fileID: 441228}
+  - {fileID: 473338}
+  - {fileID: 495102}
+  - {fileID: 468442}
+  - {fileID: 459504}
+  - {fileID: 494700}
+  - {fileID: 440790}
+  - {fileID: 426986}
+  - {fileID: 455394}
+  - {fileID: 488448}
+  - {fileID: 492064}
+  - {fileID: 424340}
+  - {fileID: 496966}
+  - {fileID: 468208}
+  - {fileID: 460746}
+  - {fileID: 491098}
+  - {fileID: 444172}
+  - {fileID: 463084}
+  - {fileID: 409886}
+  - {fileID: 468630}
+  - {fileID: 425834}
+  - {fileID: 481558}
+  - {fileID: 419072}
+  - {fileID: 443466}
+  - {fileID: 459290}
+  - {fileID: 421666}
+  - {fileID: 482484}
+  - {fileID: 473468}
+  - {fileID: 430382}
+  - {fileID: 474246}
+  - {fileID: 496662}
+  - {fileID: 472888}
+  - {fileID: 434406}
+  - {fileID: 466726}
+  - {fileID: 491828}
+  - {fileID: 488990}
+  - {fileID: 483418}
+  - {fileID: 442668}
+  - {fileID: 480212}
+  - {fileID: 454094}
+  - {fileID: 472684}
+  - {fileID: 456542}
+  - {fileID: 431586}
+  - {fileID: 477574}
+  - {fileID: 425114}
+  m_BlendShapeWeights: []
+  m_RootBone: {fileID: 461760}
+  m_AABB:
+    m_Center: {x: 0.23572832, y: 0.035182714, z: 0.08005838}
+    m_Extent: {x: 0.34313804, y: 0.51270884, z: 0.45580143}
+  m_DirtyAABB: 0

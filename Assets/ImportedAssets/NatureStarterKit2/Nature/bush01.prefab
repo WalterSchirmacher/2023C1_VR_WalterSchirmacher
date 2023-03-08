@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 1217316929503404927}
   - component: {fileID: 8350865605338099216}
   - component: {fileID: 1942162075294642060}
+  - component: {fileID: 2243665522516016296}
   m_Layer: 0
   m_Name: bush01
   m_TagString: Untagged
@@ -266,6 +267,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30a91961ad810f74ba1578704c30ae3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2243665522516016296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 108544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d781ff0ecd2eb842bcdcf4782f72e63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5858540507800678455
 GameObject:
   m_ObjectHideFlags: 0
@@ -276,6 +289,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8913240752401450848}
   - component: {fileID: 5774077337726223620}
+  - component: {fileID: 3154069689506491187}
   m_Layer: 9
   m_Name: BushAudio (2)
   m_TagString: Untagged
@@ -393,6 +407,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &3154069689506491187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5858540507800678455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d781ff0ecd2eb842bcdcf4782f72e63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!21 &2176284
 Material:
   serializedVersion: 6
