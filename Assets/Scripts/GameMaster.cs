@@ -530,7 +530,7 @@ public class GameMaster : MonoBehaviour
 			}
 			yield return new WaitForSeconds(wait);
 		}
-
+		/*
 		if (bushIsVisible.Count > 0)
 		{
 			foreach (GameObject go in bushIsVisible)
@@ -543,7 +543,7 @@ public class GameMaster : MonoBehaviour
 			}
 			yield return new WaitForSeconds(wait);
 		}
-
+*/
 		if (rockIsVisible.Count > 0)
 		{
 			foreach (GameObject go in rockIsVisible)
