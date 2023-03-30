@@ -605,7 +605,7 @@ public class GameMaster : MonoBehaviour
 			yield return new WaitForSeconds(wait);
 		}
 
-		if (mushIsVisible.Count > 0)
+		if (otherIsVisible.Count > 0)
 		{
 			foreach (GameObject go in otherIsVisible)
 			{
